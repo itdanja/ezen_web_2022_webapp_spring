@@ -7,8 +7,7 @@ function setboard(){
         url : "/board/setboard",
         type : "post",
         data : JSON.stringify(data) ,
-        contentType : 'application/json' , // --> @RequestBody
+        contentType : "application/json",
         success : function(re) { alert(re) }
     })
-
 }
