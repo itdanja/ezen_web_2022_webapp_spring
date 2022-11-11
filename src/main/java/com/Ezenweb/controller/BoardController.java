@@ -36,6 +36,7 @@ public class BoardController {
 
 
     @PostMapping("/setboard") // URL
+    @ResponseBody // 생략가능
     public boolean setboard( @RequestBody BoardDto boardDto  ){
         // 1. DTO 내용 확인
         System.out.println( boardDto.toString());
@@ -49,10 +50,12 @@ public class BoardController {
     }
     // 2. 게시물 목록 보기 처리 [ 페이지 , 검색 ]
     @GetMapping("/getboards")
+    @ResponseBody // 생략가능
     public ArrayList<BoardDto> getboards( ){
         // 1. ----------> 서비스[ 비지니스 로직 ] 로 이동
+        ArrayList<BoardDto> list =  new BoardService().getboards();
         // 2. 반환
-        return null;
+        return list;
     }
     // 3. 게시물 개별 조회 처리
     // @GetMapping("/getboard")
