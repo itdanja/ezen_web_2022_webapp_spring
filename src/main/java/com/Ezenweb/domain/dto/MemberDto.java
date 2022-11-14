@@ -10,7 +10,6 @@ public class MemberDto {
     private int mno;
     private String memail;
     private String mpassword;
-
     // * dto ---> entity 변환
     public MemberEntity toEntity(){
         return MemberEntity.builder()
