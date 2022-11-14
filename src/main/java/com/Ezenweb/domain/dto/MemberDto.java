@@ -1,15 +1,32 @@
 package com.Ezenweb.domain.dto;
 
 
+import com.Ezenweb.domain.entity.MemberEntity;
 import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString @Builder
 public class MemberDto {
+    private int mno;
+    private String memail;
+    private String mpassword;
 
-    private String name;
-    private String email;
-    private String organization;
-
+    // * dto ---> entity 변환
+    public MemberEntity toEntity(){
+        return MemberEntity.builder()
+                .mno(this.mno)
+                .memail(this.memail)
+                .mpassword(this.mpassword)
+                .build();
+    }
 }
+
+
+
+
+
+
+
+
+
+
