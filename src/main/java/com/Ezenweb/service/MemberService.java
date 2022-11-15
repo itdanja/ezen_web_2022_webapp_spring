@@ -22,6 +22,7 @@ public class MemberService {
 
 // -------------------------------- 서비스 메소드 --------------------------//
     // 1. 회원가입
+    @Transactional
     public int setmember(MemberDto memberDto ){
         // 1. DAO 처리 [ insert ]
         MemberEntity entity = memberRepository.save( memberDto.toEntity() );
@@ -30,6 +31,7 @@ public class MemberService {
         return entity.getMno();
     }
     // 2. 로그인
+    @Transactional
     public int getmember(MemberDto memberDto ){
         // 1. Dao 처리 [ select ]
             // 1. 모든 엔티티=레코드 호출 [ select * from member ]
@@ -49,6 +51,7 @@ public class MemberService {
         return 0; // 아이디가 틀림
     }
     // 3. 비밀번호찾기
+    @Transactional
     public String getpassword( String memail ){
         // 1. 모든 레코드/엔티티 꺼내온다.
         List<MemberEntity> entityList
@@ -62,6 +65,7 @@ public class MemberService {
         return null;
     }
     // 4. 회원탈퇴
+    @Transactional
     public int setdelete( String mpassword ){
         // 1. 로그인된 회원의 엔티티 필요!!
             // 1. 세션 호출
@@ -83,6 +87,27 @@ public class MemberService {
                 }
             }
             return 0; // [ 만약에 세션이 null 이면 반환 o 혹은 select 실패시   ]
+    }
+    // 5. 회원 수정
+    @Transactional // 데이터 수정[update]시 필수 ~~
+    public int setupdate( String mpassword ){
+        // 1. 세션 호출
+        Object object = request.getSession().getAttribute("loginMno");
+        // 2. 세션 존재여부 판단
+        if( object != null ){
+            int mno = (Integer)object;
+            // 3. pk값을 가지고 엔티티[레코드] 검색
+            Optional<MemberEntity> optional
+                    =  memberRepository.findById( mno );
+            // 4. 검색된 결과 여부 판단
+            if( optional.isPresent() ){ // 엔티티가 존재하면
+                MemberEntity entity = optional.get();
+                // 5. 찾은 엔티티[레코드]의 필드값 변경 [ update member set 필드명 = 값  where 필드명 = 값 ]
+                entity.setMpassword( mpassword );
+                return  1 ;
+            }
+        }
+        return 0;
     }
 }
 

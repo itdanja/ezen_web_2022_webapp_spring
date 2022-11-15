@@ -34,6 +34,8 @@ public class MemberController {
     }
     @GetMapping("/delete")
     public Resource getdelete(){ return new ClassPathResource("templates/member/delete.html");}
+    @GetMapping("/update")
+    public Resource getupdate(){ return new ClassPathResource("templates/member/update.html");}
 
 // --------------------------------- 서비스/기능 매핑 ------------------------------------- //
     @PostMapping("/setmember") // 회원가입 기능
@@ -56,6 +58,12 @@ public class MemberController {
         // 1. 서비스처리
         int result = memberService.setdelete( mpassword );
         // 2. 서비스결과 반환
+        return result;
+    }
+
+    @PutMapping("/setupdate")
+    public int setupdate( @RequestParam("mpassword") String mpassword ){
+        int result = memberService.setupdate( mpassword );
         return result;
     }
 }
