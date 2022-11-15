@@ -27,6 +27,10 @@ public class MemberController {
     public Resource getlogin(){
         return new ClassPathResource("templates/member/login.html");
     }
+    @GetMapping("/findpassword")
+    public Resource findpassword(){
+        return new ClassPathResource("templates/member/findpassword.html");
+    }
 
 // --------------------------------- 서비스/기능 매핑 ------------------------------------- //
     @PostMapping("/setmember") // 회원가입 기능
@@ -39,7 +43,11 @@ public class MemberController {
         int result = memberService.getmember( memberDto );
         return result;
     }
-
+    @GetMapping("/getpassword")
+    public String getpassword( @RequestParam("memail") String memail ){
+        String result = memberService.getpassword( memail );
+        return result;
+    }
 }
 
 

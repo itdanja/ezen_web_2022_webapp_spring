@@ -39,4 +39,26 @@ public class MemberService {
         }
         return 0; // 아이디가 틀림
     }
+    // 3. 비밀번호찾기
+    public String getpassword( String memail ){
+        // 1. 모든 레코드/엔티티 꺼내온다.
+        List<MemberEntity> entityList
+                = memberRepository.findAll();
+        // 2. 리스트에 찾기
+        for( MemberEntity entity : entityList ){ // 리스트 반복
+            if( entity.getMemail().equals( memail) ){
+                return entity.getMpassword();
+            }
+        }
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
