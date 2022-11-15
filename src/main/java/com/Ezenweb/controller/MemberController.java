@@ -48,24 +48,30 @@ public class MemberController {
         int result = memberService.getmember( memberDto );
         return result;
     }
-    @GetMapping("/getpassword")
+    @GetMapping("/getpassword") // 패스워드 찾기
     public String getpassword( @RequestParam("memail") String memail ){
         String result = memberService.getpassword( memail );
         return result;
     }
-    @DeleteMapping("/setdelete")
+    @DeleteMapping("/setdelete") // 회원탈퇴
     public int setdelete( @RequestParam("mpassword") String mpassword ){
         // 1. 서비스처리
         int result = memberService.setdelete( mpassword );
         // 2. 서비스결과 반환
         return result;
     }
-
-    @PutMapping("/setupdate")
+    @PutMapping("/setupdate") // 회원 수정
     public int setupdate( @RequestParam("mpassword") String mpassword ){
         int result = memberService.setupdate( mpassword );
         return result;
     }
+
+    @GetMapping("/getloginMno")
+    public int getloginMno(){
+        int result = memberService.getloginMno();
+        return result;
+    }
+
 }
 
 

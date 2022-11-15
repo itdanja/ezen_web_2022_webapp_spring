@@ -42,9 +42,10 @@ public class MemberService {
                 if( entity.getMpassword().equals(memberDto.getMpassword())){ // 엔티티=레코드 의 패스워드 와 입력받은 패스워드
                     // 세션 부여 [ 로그인 성공시 'loginMno'이름으로 회원번호 세션 저장  ]
                     request.getSession().setAttribute("loginMno" , entity.getMno() );
+                                                                // 엔티티 = 레코드 = 로그인 성공한객체
                     return 1;// 로그인 성공했다.
                 }else{
-                    return 2; // 패스워드 틀림
+                    return 2; // 패스워드 틀림 [ 전제조건 : 아이디중복 없다는 전제조건 ]
                 }
             }
         }
@@ -108,6 +109,14 @@ public class MemberService {
             }
         }
         return 0;
+    }
+    // 6. 로그인 여부 판단 메소드
+    public int getloginMno(){
+        // 1. 세션 호출
+        Object object  = request.getSession().getAttribute("loginMno");
+        // 2. 세션 여부 판단
+        if( object != null ){ return (Integer) object; }
+        else{ return 0; }
     }
 }
 
