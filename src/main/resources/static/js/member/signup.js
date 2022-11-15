@@ -1,5 +1,3 @@
-alert('dddd');
-
 
 function setmember(){
 

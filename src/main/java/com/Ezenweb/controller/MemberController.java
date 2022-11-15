@@ -23,13 +23,23 @@ public class MemberController {
     public Resource getsignup(){
         return new ClassPathResource("templates/member/signup.html"); // 프로젝트내 resource -> templates -> member -> signup.html 반환
     }
+    @GetMapping("/login")
+    public Resource getlogin(){
+        return new ClassPathResource("templates/member/login.html");
+    }
 
 // --------------------------------- 서비스/기능 매핑 ------------------------------------- //
-    @PostMapping("/setmember") // restful api
+    @PostMapping("/setmember") // 회원가입 기능
     public int setmember( @RequestBody MemberDto memberDto  ){
         int result = memberService.setmember( memberDto ); // 1. 서비스[ 비지니스 로직 ] 호출
         return result;  // 2. 반환
     }
+    @PostMapping("/getmember") // 로그인 기능
+    public int getmember( @RequestBody MemberDto memberDto ){
+        int result = memberService.getmember( memberDto );
+        return result;
+    }
+
 }
 
 
