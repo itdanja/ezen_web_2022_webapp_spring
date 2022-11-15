@@ -10,19 +10,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController // Restful api 사용하는 controller 명시
 @RequestMapping("/member") // 공통 URL 매핑 주소
 public class MemberController {
+    // 주의 : 1. 매핑주소 중복불가능 // 2. 함수명 중복불가능
 
 // --------------------------------- 전역 객체  ---------------------------------- //
     @Autowired // 스프링 컨테이너 빈 생성 [ 외부에 메모리 위임 ]
     private MemberService memberService; // 서비스 객체 생성
 
 // --------------------------------- HTML 반환 매핑 ---------------------------------- //
-    @GetMapping("/signup")
-    public Resource getsignup(){
-        return new ClassPathResource("templates/member/signup.html"); // 프로젝트내 resource -> templates -> member -> signup.html 반환
-    }
+    @GetMapping("/signup")  // 프로젝트내 resource -> templates -> member -> signup.html 반환
+    public Resource getsignup(){ return new ClassPathResource("templates/member/signup.html");    }
     @GetMapping("/login")
     public Resource getlogin(){
         return new ClassPathResource("templates/member/login.html");
@@ -31,6 +32,8 @@ public class MemberController {
     public Resource findpassword(){
         return new ClassPathResource("templates/member/findpassword.html");
     }
+    @GetMapping("/delete")
+    public Resource getdelete(){ return new ClassPathResource("templates/member/delete.html");}
 
 // --------------------------------- 서비스/기능 매핑 ------------------------------------- //
     @PostMapping("/setmember") // 회원가입 기능
@@ -46,6 +49,13 @@ public class MemberController {
     @GetMapping("/getpassword")
     public String getpassword( @RequestParam("memail") String memail ){
         String result = memberService.getpassword( memail );
+        return result;
+    }
+    @DeleteMapping("/setdelete")
+    public int setdelete( @RequestParam("mpassword") String mpassword ){
+        // 1. 서비스처리
+        int result = memberService.setdelete( mpassword );
+        // 2. 서비스결과 반환
         return result;
     }
 }
