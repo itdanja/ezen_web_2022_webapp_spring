@@ -1,5 +1,6 @@
 package com.Ezenweb.domain.entity;
 
+import com.Ezenweb.domain.dto.MemberDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,4 +18,13 @@ public class MemberEntity {
     private String mpassword;
     // 2. 생성자 [ 롬복으로 사용 ]
     // 3. 메소드 [ 롬복으로 사용 ]
+    // * 엔티티 --> Dto
+    public MemberDto toDto(){
+        return MemberDto
+                .builder() // 빌더 메소드 시작
+                .mno( this.mno )
+                .memail(this.memail)
+                .mpassword( this.mpassword )
+                .build(); // 빌드 메소드 끝
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,6 +118,24 @@ public class MemberService {
         // 2. 세션 여부 판단
         if( object != null ){ return (Integer) object; }
         else{ return 0; }
+    }
+    // 7. 로그아웃
+    public void logout(){
+        // 기본 세션명의 세션데이터를 null
+        request.getSession().setAttribute("loginMno" , null );
+    }
+
+    // 8. 회원목록 서비스
+    public List<MemberDto> list(){
+        // 1. JPA 이용한 모든 엔티티 호출
+        List<MemberEntity> list = memberRepository.findAll();
+        // 2. 엔티티 --> DTO
+            // Dto list 선언
+        List<MemberDto> dtoList = new ArrayList<>();
+        for( MemberEntity entity : list ){
+            dtoList.add( entity.toDto() ); // 형변환
+        }
+        return dtoList;
     }
 }
 
