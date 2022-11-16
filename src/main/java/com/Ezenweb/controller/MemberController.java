@@ -86,8 +86,9 @@ public class MemberController {
     }
 
     @GetMapping("/getauth")
-    public String getauth(  ){
-        return memberService.getauth( "itdanja@kakao.com" );
+    public String getauth( @RequestParam("toemail") String toemail ){
+        return memberService.getauth( toemail );
+        // return "456464";
     }
 
 }

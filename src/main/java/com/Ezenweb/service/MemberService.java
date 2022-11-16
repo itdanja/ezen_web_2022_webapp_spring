@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class MemberService {
@@ -146,8 +147,18 @@ public class MemberService {
 
     // 9. 인증코드 발송
     public String getauth( String toemail ){
-        String auth = "35435413"; // 인증코드
-        meailsend( toemail , "EzenWeb 인증코드" , auth );   // 메일전송
+        String auth = "";
+        String html = "<html><body><h1> EZENWEB 회원 가입 이메일 인증코드 입니다 </h1> ";
+
+        Random random = new Random();   // 1. 난수 객체
+        for( int i = 0 ; i<6 ; i++ ){   // 2. 6 회전
+            char randchar = (char)(random.nextInt(26)+97);  // 97 ~ 122 : 알파벳 소문자
+            //char randchar = (char)(random.nextInt(10)+48);  // 48 ~ 57 : 0 ~ 9
+            auth += randchar;
+        }
+        html += "<div>인증코드 : "+auth+"</div>";
+        html += "</body></html>";
+        meailsend( toemail , "EzenWeb 인증코드" , html );   // 메일전송
         return auth; // 인증코드 반환
     }
     // *. 메일 전송 서비스
