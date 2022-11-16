@@ -85,6 +85,11 @@ public class MemberController {
         return list;
     }
 
+    @GetMapping("/getauth")
+    public String getauth(  ){
+        return memberService.getauth( "itdanja@kakao.com" );
+    }
+
 }
 
 
