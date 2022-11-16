@@ -82,7 +82,6 @@ public class MemberController {
     @ResponseBody
     public List<MemberDto> list(){
         List<MemberDto> list = memberService.list();
-        System.out.println("확인:" + list );
         return list;
     }
 

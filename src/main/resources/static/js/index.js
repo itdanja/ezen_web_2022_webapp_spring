@@ -37,6 +37,24 @@ function logout(){
     })
 }
 
+// 회원목록
+list()
+function list(){
+    $.ajax({
+        url : "/member/list",
+        type : "get" ,
+        success : function(list) {
+            let html = '<tr>  <th> 번호 </th> <th> 이메일 </th> <th> 비밀번호 </th></tr>';
+            list.forEach( (m) => {
+                html +=
+                '<tr>  <td> '+m.mno+' </td> <td> '+m.memail+' </td> <td> '+m.mpassword+' </td></tr>';
+            })
+            document.querySelector(".mtable").innerHTML = html;
+        }
+    })
+}
+
+
 
 
 
