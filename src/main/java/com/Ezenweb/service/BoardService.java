@@ -68,8 +68,18 @@ public class BoardService {
     }
     // 5. 게시물 수정 [ 첨부파일 ]
     @Transactional
-    public boolean upboard( BoardDto boardDto){ }
-
+    public boolean upboard( BoardDto boardDto){
+        // 1. DTO에서 수정할 PK번호 이용해서 엔티티 찾기
+        Optional<BoardEntity> optional = boardRepository.findById( boardDto.getBno() );
+        if( optional.isPresent() ){  // 2.
+            BoardEntity entity = optional.get();
+            // * 수정처리 [ 메소드 별도 존재x /  엔티티 객체 <--매핑--> 레코드 / 엔티티 객체 필드를 수정 : @Transactional ]
+            entity.setBtitle( boardDto.getBtitle() );
+            entity.setBcontent( boardDto.getBcontent()) ;
+            entity.setBfile( boardDto.getBfile() );
+            return true;
+        }else{  return false;  }
+    }
 }
 
 
