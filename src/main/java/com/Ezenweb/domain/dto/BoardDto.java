@@ -27,7 +27,6 @@ public class BoardDto {
                 this.bcontent,this.bview,this.bfile,
                 this.mno,this.cno);
     }
-
 }
 
 

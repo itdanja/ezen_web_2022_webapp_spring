@@ -2,24 +2,29 @@ package com.Ezenweb.service;
 
 import com.Ezenweb.domain.dao.BoardDao;
 import com.Ezenweb.domain.dto.BoardDto;
+import com.Ezenweb.domain.entity.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
-@Service // 컴포넌트 [  Spring MVC ]
+@Service
 public class BoardService {
-    // 1. 게시물 등록 서비스
-    public boolean setboard(BoardDto boardDto){
-        return new BoardDao().setboard(boardDto);
-    }
-    // 2. 게시물 목록 서비스
-    public ArrayList<BoardDto> getboards( ) {
-        return new BoardDao().getboards();
-    }
+    // ------------1.전역변수---------------//
+    @Autowired
+    private BoardRepository boardRepository;
+
+    // ------------ 2. 서비스 ------------- //
+    public boolean setboard( BoardDto boardDto ){ }
+    public List<BoardDto> boardlist(){ }
+    public BoardDto getboard( int bno ){ }
+    public boolean delboard( int bno ){ }
+    public boolean upboard( BoardDto boardDto){ }
+
 }
-
-
 
 
 
