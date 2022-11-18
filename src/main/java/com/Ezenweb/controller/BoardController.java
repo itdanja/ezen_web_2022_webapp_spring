@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/board") // 공통 URL
 public class BoardController {
 
-    // 컨트롤 역할 : 요청 / 응답
+    // 컨트롤 역할 : HTTP 요청 / ModelAndView 응답
 
     // ------------1.전역변수---------------//
     // 1. 서비스 메소드 호출 위한 객체 생성

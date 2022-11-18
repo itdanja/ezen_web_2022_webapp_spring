@@ -32,7 +32,7 @@ public class BoardService {
     @Transactional
     public boolean setboard( BoardDto boardDto ){
         BoardEntity entity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
-        if( entity.getMno() != 0 ){ return true; } // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
+        if( entity.getBno() != 0 ){ return true; } // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
         else{ return false; } // 2. 0 이면 entity 생성 실패
     }
     // 2. 게시물 목록 조회
