@@ -23,9 +23,14 @@ public class BoardDto {
     //1. 형변환
     public BoardEntity toEntity(){
         // * 생성자를 이용한 객체 생성 [ *빌더패턴 비교 ]
-        return new BoardEntity( this.bno,this.btitle,
-                this.bcontent,this.bview,this.bfile,
-                this.mno,this.cno);
+        return BoardEntity.builder()
+                .bno( this.bno )
+                .btitle( this.btitle )
+                .bcontent( this.bcontent )
+                .bview( this.bview )
+                .bfile( this.bfile )
+                .cno( this.cno )
+                .build();
     }
 }
 

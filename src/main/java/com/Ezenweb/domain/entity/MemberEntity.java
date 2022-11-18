@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name="member") // db에서 사용될 테이블 이름
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString @Builder
-public class MemberEntity {
+public class MemberEntity extends BaseEntity {
     // 1. 필드
     @Id // 엔티티당 무조건 1개이상[ PK ]
     @GeneratedValue( strategy = GenerationType.IDENTITY ) // 자동번호 부여
