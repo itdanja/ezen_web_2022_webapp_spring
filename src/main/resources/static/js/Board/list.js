@@ -10,14 +10,20 @@ function boardlist(){
             let html = '<tr>  <th> 번호 </th> <th> 제목 </th> <th> 작성자 </th></tr>';
             list.forEach( (b) => {
                 html +=
-                '<tr>  <td> '+b.bno+' </td> <td> '+b.btitle+' </td> <td> '+b.mno+' </td></tr>';
+                '<tr>  <td> '+b.bno+' </td> <td onclick="getview('+b.bno+')">'+b.btitle+' </td> <td> '+b.mno+' </td></tr>';
             })
             document.querySelector(".btable").innerHTML = html;
         }
     })
 }
 
-
+// 2. 게시물 조회 페이지 [ 페이지 전환 -> 클릭한 게시물번호 기록( 1.java(세션-서버가 종료될때 초기화) , 2.템플릿 , 3.js(페이지 전환시 초기화 / 세션,쿠키 )  ]
+function getview( bno ){
+    // 1. 클릭한 게시물번호 저장
+    sessionStorage.setItem("bno", bno );
+    // 2. 페이지 전환
+    location.href="/board/view";
+}
 
 
 
