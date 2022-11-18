@@ -1,18 +1,12 @@
 package com.Ezenweb.controller;
 
 import com.Ezenweb.domain.dto.BoardDto;
-import com.Ezenweb.domain.entity.BoardRepository;
 import com.Ezenweb.service.BoardService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController // @Controller + @ResponseBody

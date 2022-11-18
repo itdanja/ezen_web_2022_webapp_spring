@@ -1,13 +1,7 @@
 package com.Ezenweb.domain.dto;
 
-import com.Ezenweb.domain.entity.BoardEntity;
+import com.Ezenweb.domain.entity.board.BoardEntity;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 
 @NoArgsConstructor @AllArgsConstructor@Getter @Setter @ToString @Builder
@@ -18,8 +12,8 @@ public class BoardDto {
     private int bview;          // 조회수
     private String bfile;       // 첨부파일
     private int mno;            // 작성자[회원번호-fk]
-    private int cno;            // 카테고리[ 카테고리-fk ]
-    private String memail;         //  회원아이디
+    private int bcno;           // 카테고리[ 카테고리-fk ]
+    private String memail;      //  회원아이디
 
     //1. 형변환
     public BoardEntity toEntity(){
@@ -30,7 +24,6 @@ public class BoardDto {
                 .bcontent( this.bcontent )
                 .bview( this.bview )
                 .bfile( this.bfile )
-                .cno( this.cno )
                 .build();
     }
 }

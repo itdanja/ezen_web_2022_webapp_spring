@@ -1,15 +1,12 @@
 package com.Ezenweb.service;
 
-import com.Ezenweb.domain.dao.BoardDao;
 import com.Ezenweb.domain.dto.BoardDto;
-import com.Ezenweb.domain.entity.BoardEntity;
-import com.Ezenweb.domain.entity.BoardRepository;
-import com.Ezenweb.domain.entity.MemberEntity;
-import com.Ezenweb.domain.entity.MemberRepository;
+import com.Ezenweb.domain.entity.board.BoardEntity;
+import com.Ezenweb.domain.entity.board.BoardRepository;
+import com.Ezenweb.domain.entity.member.MemberEntity;
+import com.Ezenweb.domain.entity.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;

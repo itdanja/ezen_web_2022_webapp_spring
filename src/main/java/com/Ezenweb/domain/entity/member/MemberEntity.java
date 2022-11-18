@@ -1,10 +1,11 @@
-package com.Ezenweb.domain.entity;
+package com.Ezenweb.domain.entity.member;
 
 import com.Ezenweb.domain.dto.MemberDto;
+import com.Ezenweb.domain.entity.BaseEntity;
+import com.Ezenweb.domain.entity.board.BoardEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
