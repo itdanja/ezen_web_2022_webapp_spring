@@ -10,7 +10,7 @@ function boardlist(){
             let html = '<tr>  <th> 번호 </th> <th> 제목 </th> <th> 작성자 </th></tr>';
             list.forEach( (b) => {
                 html +=
-                '<tr>  <td> '+b.bno+' </td> <td onclick="getview('+b.bno+')">'+b.btitle+' </td> <td> '+b.mno+' </td></tr>';
+                '<tr>  <td> '+b.bno+' </td> <td onclick="getview('+b.bno+')">'+b.btitle+' </td> <td> '+b.memail+' </td></tr>';
             })
             document.querySelector(".btable").innerHTML = html;
         }

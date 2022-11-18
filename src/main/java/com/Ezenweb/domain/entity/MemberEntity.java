@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // 해당연결된 DB의 테이블과 매핑[연결]
 @Table(name="member") // db에서 사용될 테이블 이름
@@ -24,6 +26,11 @@ public class MemberEntity extends BaseEntity {
 
     @Column( nullable = false)  // not null
     private String mphone;      // 회원 전화번호 필드
+
+    @OneToMany(mappedBy = "memberEntity" ) // [ 1:n] PK 에 해당 어노테이션   mappedBy="fk필드명"
+    @Builder.Default // 빌더 사용시 해당 필드의 초기값 설정
+    private List<BoardEntity> boardEntityList
+            = new ArrayList<>();
 
     // 2. 생성자 [ 롬복으로 사용 ]
     // 3. 메소드 [ 롬복으로 사용 ]

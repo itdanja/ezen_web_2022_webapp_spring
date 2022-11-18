@@ -38,7 +38,6 @@ public class BoardService {
     // 1. 게시물 쓰기
     @Transactional
     public boolean setboard( BoardDto boardDto ){
-
         // 1. 로그인 정보 확인[ 세션 = loginMno ]
         Object object = request.getSession().getAttribute("loginMno");
         if( object == null ) { return false; }
@@ -50,10 +49,13 @@ public class BoardService {
         // 4. 로그인된 회원의 엔티티
         MemberEntity memberEntity =  optional.get();
 
-        BoardEntity entity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
-        if( entity.getBno() != 0 ){   // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
+        BoardEntity boardEntity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
+        if( boardEntity.getBno() != 0 ){   // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
             // ***!!!! 5. fk 대입
-            entity.setMemberEntity( memberEntity );
+            boardEntity.setMemberEntity( memberEntity );
+            // *** 양방향 [ pk필드에 fk 연결 ]
+            memberEntity.getBoardEntityList().add( boardEntity);
+
             return true;
         }
         else{ return false; } // 2. 0 이면 entity 생성 실패

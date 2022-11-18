@@ -42,6 +42,7 @@ public class BoardEntity extends BaseEntity {
                 .bview( this.bview )
                 .bfile( this.bfile )
                 .cno( this.cno )
+                .memail( this.memberEntity.getMemail() )
                 .build();
     }
 

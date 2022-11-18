@@ -19,6 +19,7 @@ public class BoardDto {
     private String bfile;       // 첨부파일
     private int mno;            // 작성자[회원번호-fk]
     private int cno;            // 카테고리[ 카테고리-fk ]
+    private String memail;         //  회원아이디
 
     //1. 형변환
     public BoardEntity toEntity(){
