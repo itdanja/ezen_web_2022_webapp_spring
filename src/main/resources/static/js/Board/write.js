@@ -51,7 +51,7 @@ function bcategorylist(){
     })
 }
 // 4. 카테고리 버튼을 클릭했을때 선택된 카테고리 번호 대입
-function bcnochage( cno ){ bcno = cno;  }
+function bcnochage( cno ){ bcno = cno; alert( bcno );  }
 
 
 

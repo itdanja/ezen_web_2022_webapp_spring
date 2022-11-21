@@ -63,15 +63,19 @@ public class BoardService {
             // 2. 카테고리 <---> 게시물 연관관계 대입
             boardEntity.setBcategoryEntity( bcategoryEntity );
             bcategoryEntity.getBoardEntityList().add( boardEntity );
-
             return true;
         }
         else{ return false; } // 2. 0 이면 entity 생성 실패
     }
     // 2. 게시물 목록 조회
     @Transactional
-    public List<BoardDto> boardlist(){
-        List<BoardEntity> elist =  boardRepository.findAll(); // 1. 모든 엔티티 호출한다.
+    public List<BoardDto> boardlist( int bcno ){
+        List<BoardEntity> elist = null;
+        if( bcno == 0 ){   elist = boardRepository.findAll();   } // 카테고리번호가 0 이면 전체보기
+        else{  // 카테고리번호가 0이 아니면 선택된 카테고리별 보기
+            BcategoryEntity bcEntity =  bcategoryRepository.findById( bcno ).get();
+            elist  = bcEntity.getBoardEntityList(); // 해당 엔티티의 게시물목록
+        }
         List<BoardDto> dlist = new ArrayList<>(); // 2. 컨트롤에게 전달할때 형변환[ entity->dto ] : 역할이 달라서
         for( BoardEntity entity : elist ){ // 3. 변환
             dlist.add( entity.toDto() );
