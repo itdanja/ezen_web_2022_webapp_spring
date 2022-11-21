@@ -52,7 +52,6 @@ public class BoardService {
             boardEntity.setMemberEntity( memberEntity );
             // *** 양방향 [ pk필드에 fk 연결 ]
             memberEntity.getBoardEntityList().add( boardEntity);
-
             return true;
         }
         else{ return false; } // 2. 0 이면 entity 생성 실패
