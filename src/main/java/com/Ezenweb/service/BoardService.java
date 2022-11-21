@@ -1,18 +1,23 @@
 package com.Ezenweb.service;
 
+import com.Ezenweb.domain.dto.BcategoryDto;
 import com.Ezenweb.domain.dto.BoardDto;
+import com.Ezenweb.domain.entity.bcategory.BcategoryEntity;
+import com.Ezenweb.domain.entity.bcategory.BcategoryRepository;
 import com.Ezenweb.domain.entity.board.BoardEntity;
 import com.Ezenweb.domain.entity.board.BoardRepository;
 import com.Ezenweb.domain.entity.member.MemberEntity;
 import com.Ezenweb.domain.entity.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 public class BoardService {
@@ -23,6 +28,8 @@ public class BoardService {
     private MemberRepository memberRepository; // 회원 리포지토리 객체 선언
     @Autowired
     private BoardRepository boardRepository;// 게시물 리포지토리 객체 선언
+    @Autowired
+    private BcategoryRepository bcategoryRepository;
         // @Transactional : 엔티티 DML 적용 할때 사용되는 어노테이션
         // 1. 메소드
             /*
@@ -101,7 +108,33 @@ public class BoardService {
             return true;
         }else{  return false;  }
     }
+    // 6. 카테고리 등록
+    public boolean setbcategory(  BcategoryDto bcategoryDto ){
+        BcategoryEntity entity =  bcategoryRepository.save(  bcategoryDto.toEntity() );
+        if( entity.getBcno() != 0 ){ return  true;}
+        else{ return false; }
+    }
+    // 7. 모든 카테고리 출력
+    public List<BcategoryDto> bcategorylist(){
+        List<BcategoryEntity> entityList =  bcategoryRepository.findAll();
+        List<BcategoryDto> dtolist = new ArrayList<>();
+        entityList.forEach( e -> dtolist.add( e.toDto() ) );
+        return dtolist;
+    }
 }
+/*
+        // 1. 리스트를 순회하는 방법 3가지 [
+        // 화살표함수[람다식표현] js : ( 인수 )  => { 실행코드 }    java : 인수 -> { 실행코드 }
+        for( int i = 0 ; i < entityList.size(); i++ ){
+            BcategoryEntity e =  entityList.get(i);
+            System.out.println( e.toString() );
+        }
+        for ( BcategoryEntity e : entityList ){
+            System.out.println( e.toString() );
+        }
+        entityList.forEach( e -> e.toString()  );
+
+ */
 
 
 
