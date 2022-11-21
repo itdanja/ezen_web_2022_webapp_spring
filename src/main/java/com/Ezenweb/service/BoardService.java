@@ -27,9 +27,12 @@ public class BoardService {
     @Autowired
     private MemberRepository memberRepository; // 회원 리포지토리 객체 선언
     @Autowired
+    private MemberService memberService;
+    @Autowired
     private BoardRepository boardRepository;// 게시물 리포지토리 객체 선언
     @Autowired
     private BcategoryRepository bcategoryRepository;
+
         // @Transactional : 엔티티 DML 적용 할때 사용되는 어노테이션
         // 1. 메소드
             /*
@@ -39,26 +42,28 @@ public class BoardService {
                 4. delete : boardRepository.delete( 삭제할엔티티 )
              */
     // ------------ 2. 서비스 ------------- //
+
     // 1. 게시물 쓰기
     @Transactional
     public boolean setboard( BoardDto boardDto ){
-        // 1. 로그인 정보 확인[ 세션 = loginMno ]
-        Object object = request.getSession().getAttribute("loginMno");
-        if( object == null ) { return false; }
-        // 2. 로그인된 회원번호
-        int mno = (Integer)object;
-        // 3. 회원번호 --> 회원정보 호출
-        Optional<MemberEntity> optional =  memberRepository.findById(mno);
-        if( !optional.isPresent() ){ return false; }
-        // 4. 로그인된 회원의 엔티티
-        MemberEntity memberEntity =  optional.get();
-
+        // ---------- 로그인 회원 찾기 메소드 실행 --> 회원엔티티 검색 --------------  //
+        MemberEntity memberEntity = memberService.getEntity();
+        if( memberEntity == null ){ return false; }
+        // ---------------------------- //
+        // ------------ 선택한 카테고리 번호 --> 카테고리 엔티티 검색 --------------  //
+        Optional<BcategoryEntity> optional = bcategoryRepository.findById( boardDto.getBcno() );
+        if ( !optional.isPresent()) { return false;}
+        BcategoryEntity bcategoryEntity = optional.get();
+        // --------------------------  //
         BoardEntity boardEntity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
         if( boardEntity.getBno() != 0 ){   // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
-            // ***!!!! 5. fk 대입
-            boardEntity.setMemberEntity( memberEntity );
-            // *** 양방향 [ pk필드에 fk 연결 ]
-            memberEntity.getBoardEntityList().add( boardEntity);
+            // 1. 회원 <---> 게시물 연관관계 대입
+            boardEntity.setMemberEntity( memberEntity ); // ***!!!! 5. fk 대입
+            memberEntity.getBoardEntityList().add( boardEntity); // *** 양방향 [ pk필드에 fk 연결 ]
+            // 2. 카테고리 <---> 게시물 연관관계 대입
+            boardEntity.setBcategoryEntity( bcategoryEntity );
+            bcategoryEntity.getBoardEntityList().add( boardEntity );
+
             return true;
         }
         else{ return false; } // 2. 0 이면 entity 생성 실패

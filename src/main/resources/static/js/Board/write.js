@@ -1,12 +1,13 @@
 // -------------- 전역변수 -----------------//
-let bcno = 2; // 카테고리 번호   // 카테고리 기본값
+let bcno = 2; // 카테고리 번호   // 카테고리 기본값 = 자유게시판
 
 // 1. 게시물 등록 메소드
 function setboard(){
     let data = {
         btitle : document.querySelector('.btitle').value ,
         bcontent : document.querySelector('.bcontent').value,
-        bfile : document.querySelector('.bfile').value
+        bfile : document.querySelector('.bfile').value ,
+        bcno : bcno
     }
     $.ajax({
         url : "/board/setboard",
@@ -50,7 +51,7 @@ function bcategorylist(){
     })
 }
 // 4. 카테고리 버튼을 클릭했을때 선택된 카테고리 번호 대입
-function bcnochage( cno ){ bcno = cno; alert( bcno+"의 카테고리 선택");  }
+function bcnochage( cno ){ bcno = cno;  }
 
 
 
