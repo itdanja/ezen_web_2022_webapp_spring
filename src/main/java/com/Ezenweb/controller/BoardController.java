@@ -83,6 +83,12 @@ public class BoardController {
     public List<BcategoryDto> bcategorylist(){
         return boardService.bcategorylist();
     }
+
+    // 8. 첨부파일 다운로드
+    @GetMapping("/filedownload")
+    public void filedownload( @RequestParam("filename") String filename ){
+        boardService.filedownload( filename );
+    }
 }
 
 
