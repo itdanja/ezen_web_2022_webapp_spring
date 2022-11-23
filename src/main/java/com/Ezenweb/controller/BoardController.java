@@ -42,9 +42,14 @@ public class BoardController {
     // ----------- 3.요청과응답 처리 [model] --------------//
         // 1. HTTP 요청 메소드 매핑 : @PostMapping @GetMapping @DeleteMapping @PutMapping
         // 2. HTTP 데이터 요청 메소드 매핑 : @RequestBody @RequestParam @PathVariable
-    // 1. 게시물 쓰기 [ 첨부파일 ]
+    // 1. 게시물 쓰기 [ 첨부파일 없을때  ]
+//    @PostMapping("/setboard")
+//    public boolean setboard( @RequestBody BoardDto boardDto ){
+//        return boardService.setboard( boardDto);
+//    }
+    // 1. 게시물 쓰기 [ 첨부파일 있을때 @RequestBody 지우기  ]
     @PostMapping("/setboard")
-    public boolean setboard( @RequestBody BoardDto boardDto ){
+    public boolean setboard( BoardDto boardDto ){
         return boardService.setboard( boardDto);
     }
     // 2. 게시물 목록 조회 [ 페이징,검색 ]

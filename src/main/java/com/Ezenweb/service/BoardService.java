@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 @Service
@@ -57,6 +59,29 @@ public class BoardService {
         // --------------------------  //
         BoardEntity boardEntity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
         if( boardEntity.getBno() != 0 ){   // 2. 생성된 entity의 게시물번호가 0 이 아니면  성공
+
+            // 1. MultipartFile 인터페이스
+                // .getOriginalFilename() : 해당 인터페이스에 연결(주소)된 파일의 이름 호출
+                // .transferTo() : 파일이동[ 사용자pc ---> 개발자 pc ]
+                    // .transferTo( 파일객체 )
+                    // File : java 외 파일을 객체화 클래스
+                        // new File("경로") : 해당 경로의 파일을 객체화
+            if( boardDto.getBfile() != null ) { // ** 첨부파일 있을때
+                // * 업로드 된 파일의 이름 [ 문제점 : 파일명 중복 ]
+                String uuid = UUID.randomUUID().toString(); // 1. 난수생성
+                String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename(); // 2. 난수+파일명
+                // * 첨부파일명 db 에 등록
+                boardEntity.setBfile(filename); // 해당 파일명 엔티티에 저장 // 3. 난수+파일명 엔티티 에 저장
+
+                // * 첨부파일 업로드 // 3. 저장할 경로
+                String path = "C:\\Users\\504t\\Desktop\\springweb\\Ezenweb\\src\\main\\resources\\static\\bupload\\";
+                try {
+                    File uploadfile = new File(path + filename);  // 4. 경로+파일명 [ 객체화 ]
+                    boardDto.getBfile().transferTo(uploadfile);   // 5. 해당 객체 경로 로 업로드
+                } catch (Exception e) {
+                    System.out.println("첨부파일 업로드 실패 ");
+                }
+            }
             // 1. 회원 <---> 게시물 연관관계 대입
             boardEntity.setMemberEntity( memberEntity ); // ***!!!! 5. fk 대입
             memberEntity.getBoardEntityList().add( boardEntity); // *** 양방향 [ pk필드에 fk 연결 ]
@@ -113,7 +138,6 @@ public class BoardService {
             // * 수정처리 [ 메소드 별도 존재x /  엔티티 객체 <--매핑--> 레코드 / 엔티티 객체 필드를 수정 : @Transactional ]
             entity.setBtitle( boardDto.getBtitle() );
             entity.setBcontent( boardDto.getBcontent()) ;
-            entity.setBfile( boardDto.getBfile() );
             return true;
         }else{  return false;  }
     }
@@ -146,6 +170,11 @@ public class BoardService {
  */
 
 
+// 데이터[파일명]가 중복일때 식별자 만들기
+// 1. pk+데이터
+// 2. uuid + 데이터 [ UUID (범용 고유 식별자 클래스 : UUID.randomUUID().toString() ]
+// 3. 업로드 날짜/시간 + 데이터
+// 4. 중복된파일명 중 최근파일명뒤에 데이터 + (중복수+1)
 
 
 

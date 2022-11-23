@@ -1,6 +1,4 @@
 
-alert('ddd');
-
 // 1. 해당 'root' 라는  id를 갖는 html 태그 호출
 const domContainer = document.querySelector('#root')
 console.log( domContainer )
