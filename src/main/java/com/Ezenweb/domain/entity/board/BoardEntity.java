@@ -24,7 +24,7 @@ public class BoardEntity extends BaseEntity {
     @ColumnDefault( "0" )           // JPA insert 할 경우 default
     private int bview;          // 조회수
     @Column
-    private String bfile;       // 첨부파일
+    private String bfile;       // 파일명
 
     // 연관관계1 [ 회원번호[pk] <--양방향--> 게시물번호[fk]
     @ManyToOne // [1:n] FK 에 해당 어노테이션
@@ -49,9 +49,9 @@ public class BoardEntity extends BaseEntity {
                 .bcontent( this.bcontent )
                 .bview( this.bview )
                 .memail( this.memberEntity.getMemail() )
+                .bfilename( this.bfile )
                 .build();
     }
-
 }
 
 

@@ -11,9 +11,11 @@ public class BoardDto {
     private String btitle;      // 게시물제목
     private String bcontent;    // 게시물 내용
     private int bview;          // 조회수
-    private MultipartFile bfile;       // 첨부파일
+    private MultipartFile bfile;// 첨부파일 객체[업로드용]
         // spring : MultipartFile 인터페이스
         // jsp : cos 라이브러리
+    private String bfilename;   //첨부파일 [ 출력용 ]
+
     private int bcno;           // 카테고리[ 카테고리-fk ]
     private String memail;      //  회원아이디
 
