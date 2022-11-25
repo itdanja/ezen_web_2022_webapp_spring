@@ -140,18 +140,15 @@ public class BoardService {
     @Transactional      // bcno : 카테고리번호 , page : 현재 페이지번호
     public List<BoardDto> boardlist( int bcno , int page  ){
         Page<BoardEntity> elist = null;
-            // 1. Pageable 인터페이스  [ import 사용시 domain 패키지 ]
-            // 2. PageRequest 구현클래스
-                // 1.PageRequest.of( 현재페이지번호 , 표시할레코드수 )
-        Pageable pageable = PageRequest.of( page-1 , 3  ); // 페이징 설정
+        Pageable pageable = PageRequest.of( page-1 , 3  ); // 페이징 설정 [ 페이지시작 : 0 부터 ]
         // 1. 카테고리번호가 0 이면 전체보기
         if( bcno == 0 ){  elist = boardRepository.findAll( pageable   );    }
         // 2. 카테고리번호가 0이 아니면 선택된 카테고리별 보기
-//        else{
-//            BcategoryEntity bcEntity =  bcategoryRepository.findById( bcno ).get();
-//            elist  = bcEntity.getBoardEntityList(); // 해당 엔티티의 게시물목록
-//        }
-        System.out.println(" 페이징 인터페이스 : " + elist );
+        else{
+            elist = boardRepository.findBybcno( bcno , pageable );
+        }
+        System.out.println("전체 페이지수 : " + elist.getTotalPages());
+        System.out.println("전체 게시물수 : " + elist.getTotalElements() );
 
         List<BoardDto> dlist = new ArrayList<>(); // 2. 컨트롤에게 전달할때 형변환[ entity->dto ] : 역할이 달라서
         for( BoardEntity entity : elist ){ // 3. 변환
@@ -263,6 +260,13 @@ public class BoardService {
 
 
 
+/*
 
+
+            // 1. Pageable 인터페이스  [ import 사용시 domain 패키지 ]
+            // 2. PageRequest 구현클래스
+                // 1.PageRequest.of( 현재페이지번호 , 표시할레코드수 )
+
+ */
 
 
