@@ -24,10 +24,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Service
@@ -151,10 +148,21 @@ public class BoardService {
             if( bcno == 0  ) elist = boardRepository.findAll( pageable);
             else elist = boardRepository.findBybcno( bcno , pageable);
         }
+
+        // 프론트엔드에 표시할 페이징번호버튼 수
+        int btncount = 5;                               // 1.페이지에 표시할 총 페이지 버튼 개수
+        int startbtn = (page/btncount) * btncount +1;   // 2. 시작번호 버튼
+        int endbtn = startbtn + btncount-1;             // 3. 마지막번호 버튼
+        if( endbtn > elist.getTotalPages() ) endbtn =elist.getTotalPages();
+
         List<BoardDto> dlist = new ArrayList<>(); // 2. 컨트롤에게 전달할때 형변환[ entity->dto ] : 역할이 달라서
         for( BoardEntity entity : elist ){ // 3. 변환
             dlist.add( entity.toDto() );
         }
+
+        dlist.get(0).setStartbtn( startbtn );
+        dlist.get(0).setEndbtn( endbtn );
+
         return dlist;  // 4. 변환된 리스트 dist 반환
     }
     // 3. 게시물 개별 조회
@@ -271,3 +279,12 @@ public class BoardService {
  */
 
 
+// *. 검색페이징된
+//        System.out.println(" 엔티티들 : " + elist );
+//        System.out.println(" 총엔티티수 : " + elist.getTotalElements() );
+//        System.out.println(" 총페이지수 : " + elist.getTotalPages() );
+//        System.out.println(" 현재페이지수 : " + elist.getNumber() );
+//        System.out.println(" 현재엔티티들 객체정보 : " + elist.getContent());
+//        System.out.println(" 현재 페이지의 게시물수 : " + elist.getNumberOfElements() );
+//        System.out.println(" 현재 페이지가 첫페이지 여부확인 : "+elist.isFirst() );
+//        System.out.println(" 현재 페이지가 마지막페이지 여부확인 : "+elist.isLast() );
