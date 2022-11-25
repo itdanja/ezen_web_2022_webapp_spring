@@ -137,19 +137,20 @@ public class BoardService {
         else{ return false; } // 2. 0 이면 entity 생성 실패
     }
     // 2. 게시물 목록 조회
-    @Transactional      // bcno : 카테고리번호 , page : 현재 페이지번호
-    public List<BoardDto> boardlist( int bcno , int page  ){
-        Page<BoardEntity> elist = null;
-        Pageable pageable = PageRequest.of( page-1 , 3  ); // 페이징 설정 [ 페이지시작 : 0 부터 ]
-        // 1. 카테고리번호가 0 이면 전체보기
-        if( bcno == 0 ){  elist = boardRepository.findAll( pageable   );    }
-        // 2. 카테고리번호가 0이 아니면 선택된 카테고리별 보기
-        else{
-            elist = boardRepository.findBybcno( bcno , pageable );
+    @Transactional      // bcno : 카테고리번호 , page : 현재 페이지번호 , key : 검색필드명 , keyword : 검색 데이터
+    public List<BoardDto> boardlist(  int page , int bcno , String key , String keyword  ){
+        Page<BoardEntity> elist = null; // 1. 페이징처리된 엔티티 리스트 객체 선언
+        Pageable pageable = PageRequest.of(  // 2.페이징 설정 [ 페이지시작 : 0 부터 ] , 게시물수 , 정렬
+                page-1 , 3 , Sort.by( Sort.Direction.DESC , "bno")  );
+        // 3. 검색여부 / 카테고리  판단
+        if( key.equals("btitle") ){ // 검색필드가 제목이면
+            elist = boardRepository.findbybtitle( bcno , keyword , pageable);
+        }else if( key.equals("bcotent") ){ // 검색필드가 제목이면
+            elist = boardRepository.findbybcontent( bcno , keyword , pageable);
+        }else{ // 검색이 없으면 // 카테고리 출력
+            if( bcno == 0  ) elist = boardRepository.findAll( pageable);
+            else elist = boardRepository.findBybcno( bcno , pageable);
         }
-        System.out.println("전체 페이지수 : " + elist.getTotalPages());
-        System.out.println("전체 게시물수 : " + elist.getTotalElements() );
-
         List<BoardDto> dlist = new ArrayList<>(); // 2. 컨트롤에게 전달할때 형변환[ entity->dto ] : 역할이 달라서
         for( BoardEntity entity : elist ){ // 3. 변환
             dlist.add( entity.toDto() );

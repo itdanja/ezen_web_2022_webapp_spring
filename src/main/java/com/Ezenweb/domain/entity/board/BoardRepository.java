@@ -20,11 +20,18 @@ public interface BoardRepository extends JpaRepository< BoardEntity , Integer  >
                 //  [ 인수 ] ( @Param("변수명") 자료형 변수명 )   ----------->    :변수명
                 //  [ 인수 ] ( 자료형 변수명 ,자료형 변수명    )   ----------->    ?인수번호
                         // @Param("변수명") 생략가능 [ jdk 8 이상 ]
-    @Query( value = "select * from board where bcno = :bcno " , nativeQuery = true)
-    Page<BoardEntity> findBybcno(@Param("bcno") int bcno , Pageable pageable);
+
 //    @Query( value = "select p from board p where p.bcno = ?1")
 //    Page<BoardEntity> findBybcno( int bcno ,  Pageable pageable);
 
-
+    // 1. 제목 검색
+    @Query( value = "select * from board where bcno = :bcno and btitle like %:keyword%" , nativeQuery = true )
+    Page<BoardEntity> findbybtitle( int bcno , String keyword , Pageable pageable);
+    // 2. 내용 검색
+    @Query( value = "select * from board where bcno = :bcno and bcontent like %:keyword%" , nativeQuery = true )
+    Page<BoardEntity> findbybcontent( int bcno , String keyword , Pageable pageable);
+    // 3. 검색이 없을때
+    @Query( value = "select * from board where bcno = :bcno " , nativeQuery = true)
+    Page<BoardEntity> findBybcno(@Param("bcno") int bcno , Pageable pageable);
 
 }
