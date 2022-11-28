@@ -19,7 +19,6 @@ const comments = [  // 댓글3개 객체를 저장하는 리스트 객체
 ];
 
 function CommentList( props ){
-    // 2.
     return(
         <div>
             { comments.map( (c) => {

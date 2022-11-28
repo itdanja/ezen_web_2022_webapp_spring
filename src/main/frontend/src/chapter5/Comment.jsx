@@ -11,12 +11,13 @@
 // 1.
 import React from 'react'
 import styles from './Comment.css'; // * css 파일 import 하기
+import logo from '../logo.svg';
 // 2.
 function Comment( props ){
     return(
         <div className="wrapper">
             <div className="imgContainer">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+                <img src={logo}
                     className="image"
                 />
             </div>
