@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Signup from './component/member/Signup'
+
 // 1. 사용할 컴포넌트 호출 [ import 컴포넌트명 from 파일명 ]
 import Library from './chapter3/Library'
 import Clock from './chapter4/Clock'
@@ -38,11 +40,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //      } , 1000 );
 
 // 4.
-            root.render(
-              <React.StrictMode>
-                <CommentList />
-              </React.StrictMode>
-            );
+//root.render(
+//  <React.StrictMode>
+//    <CommentList />
+//  </React.StrictMode>
+//);
+
+// 4.
+root.render(
+  <React.StrictMode>
+    <Signup />
+  </React.StrictMode>
+);
+
 
 
 
