@@ -10,10 +10,21 @@
     // 2. 출력 : return [ 엘리먼트 = 가상 DOM ]
 // 1.
 import React from 'react'
+import styles from './Comment.css'; // * css 파일 import 하기
 // 2.
 function Comment( props ){
     return(
-        <div><h1>제가 만든 첫 컴포넌트 입니다.</h1></div>
+        <div className="wrapper">
+            <div className="imgContainer">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+                    className="image"
+                />
+            </div>
+            <div className="contentContainer">
+                <span className="nameText">{props.name}</span>
+                <span className="commentText">{props.comment}</span>
+            </div>
+        </div>
     )
 }
 // 3.
