@@ -6,6 +6,9 @@ import com.Ezenweb.domain.entity.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -17,9 +20,19 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
-// ------------------------------- 전역 객체 -------------------------------//
+    // 2. [ 시큐리티 사용시 ] 로그인 인증 메소드 재정의
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        System.out.println(" username : " + username );
+
+        return null;
+    }
+
+
+    // ------------------------------- 전역 객체 -------------------------------//
     @Autowired
     private MemberRepository memberRepository;      //리포지토리 객체
     @Autowired // 스프링 컨테이너 [ 메모리 ] 위임
@@ -74,6 +87,7 @@ public class MemberService {
 //        }
 //        return 0; // 아이디가 틀림
 //    }
+
     // 3. 비밀번호찾기
     @Transactional
     public String getpassword( String memail ){

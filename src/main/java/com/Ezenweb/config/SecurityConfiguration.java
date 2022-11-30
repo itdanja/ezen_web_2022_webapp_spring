@@ -8,11 +8,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration // 설정 컴포넌트 주입
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Override // 재정의 [ 상속받은 클래스로부터 메소드 재구현  ]
+    @Override // http 관련 시리큐티 재정의
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure( http ); // 시큐리티 기본 http 보안
+        http
+                .formLogin()                // 로그인 페이지 보안 설정
+                .loginPage("/member/login") // 아이디와 비밀번호를 입력받을 URL [ 로그인 페이지  ]
+                .loginProcessingUrl("/member/getmember") // 로그인을 처리할 URL [ 서비스 --> loadUserByUsername  ]
+                .defaultSuccessUrl("/") // 로그인 성공했을때 이동할 URL
+                .failureUrl("/member/login") // 로그인 실패시 이동할 URL
+                .usernameParameter("memail")    // 아이디 변수명
+                .passwordParameter("mpassword") // 비밀번호 변수명
+                .and()  // 기능 구분
+                .csrf() // 요청 위조 방지
+                .ignoringAntMatchers("/member/getmember"); // 해당 URL 요청 방지 해지
     }
-
 }
 
 /*

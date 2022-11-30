@@ -46,6 +46,7 @@ public class MemberController {
 //        int result = memberService.getmember( memberDto );
 //        return result;
 //    }
+
     @GetMapping("/getpassword") // 3.패스워드 찾기
     public String getpassword( @RequestParam("memail") String memail ){
         String result = memberService.getpassword( memail );
