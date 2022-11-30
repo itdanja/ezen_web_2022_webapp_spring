@@ -20,7 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("mpassword") // 비밀번호 변수명
                 .and()  // 기능 구분
                 .csrf() // 요청 위조 방지
-                .ignoringAntMatchers("/member/getmember"); // 해당 URL 요청 방지 해지
+                .ignoringAntMatchers("/member/getmember") // 로그인 post 사용  // 해당 URL 요청 방지 해지
+                .ignoringAntMatchers("/member/setmember"); // 회원가입 post 사용
     }
 }
 

@@ -6,29 +6,39 @@ import com.Ezenweb.domain.entity.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class MemberService implements UserDetailsService {
 
     // 2. [ 시큐리티 사용시 ] 로그인 인증 메소드 재정의
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String memail ) throws UsernameNotFoundException {
 
-        System.out.println(" username : " + username );
+        // 1. 입력받은 아이디 [ memail ] 로 엔티티 찾기
+        Optional<MemberEntity> optional =
+                memberRepository.findByMemail( memail );
+        if( !optional.isPresent() ){ return null;}
+        // 2. 토큰 생성 [ 일반 유저 ]
+        Set<GrantedAuthority>  authorities = new HashSet<>();
+        authorities.add( new SimpleGrantedAuthority("일반회원") );
 
-        return null;
+        MemberEntity memberEntity = optional.get();
+        MemberDto memberDto = memberEntity.toDto(); // 엔티티 --> Dto
+        memberDto.setAuthorities( authorities );       // dto --> 토큰 추가
+        return memberDto;
     }
 
 
@@ -60,6 +70,10 @@ public class MemberService implements UserDetailsService {
     // 1. 회원가입
     @Transactional
     public int setmember(MemberDto memberDto ){
+        // 암호화 : 해시함수 사용하는 암호화 기법중 하나 [ BCrypt ]
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        memberDto.setMpassword( passwordEncoder.encode( memberDto.getPassword() ) );
+
         // 1. DAO 처리 [ insert ]
         MemberEntity entity = memberRepository.save( memberDto.toEntity() );
             // memberRepository.save( 엔티티 객체 ) : 해당 엔티티 객체가 insert 생성된 엔티티객체 반환
