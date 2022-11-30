@@ -1,12 +1,22 @@
 package com.Ezenweb.config;
 
 
+import com.Ezenweb.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration // 설정 컴포넌트 주입
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private MemberService memberService;
+    @Override // 인증(로그인) 관련 메소드 재정의
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService( memberService ).passwordEncoder( new BCryptPasswordEncoder() );
+    }
 
     @Override // http 관련 시리큐티 재정의
     protected void configure(HttpSecurity http) throws Exception {

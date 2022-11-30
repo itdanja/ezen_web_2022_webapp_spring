@@ -22,23 +22,20 @@ import java.util.*;
 
 @Service
 public class MemberService implements UserDetailsService {
-
     // 2. [ 시큐리티 사용시 ] 로그인 인증 메소드 재정의
     @Override
     public UserDetails loadUserByUsername(String memail ) throws UsernameNotFoundException {
-
         // 1. 입력받은 아이디 [ memail ] 로 엔티티 찾기
-        Optional<MemberEntity> optional =
-                memberRepository.findByMemail( memail );
-        if( !optional.isPresent() ){ return null;}
-        // 2. 토큰 생성 [ 일반 유저 ]
+        MemberEntity memberEntity = memberRepository.findByMemail( memail )
+                .orElseThrow( ()-> new UsernameNotFoundException("사용자가 존재하지 않습니다,") ); // .orElseThrow : 검색 결과가 없으면 화살표함수[람다식]를 이용한
+        // 2. 검증된 토큰 생성
         Set<GrantedAuthority>  authorities = new HashSet<>();
-        authorities.add( new SimpleGrantedAuthority("일반회원") );
-
-        MemberEntity memberEntity = optional.get();
+        authorities.add( new SimpleGrantedAuthority("일반회원") ); // 토큰정보에 일반회원 내용 넣기
+        // 3.
         MemberDto memberDto = memberEntity.toDto(); // 엔티티 --> Dto
         memberDto.setAuthorities( authorities );       // dto --> 토큰 추가
-        return memberDto;
+        return memberDto; // Dto 반환 [ MemberDto는 UserDetails 의 구현체 ]
+            // 구현체 : 해당 인터페이스의 추상메소드[선언만]를 구현해준 클래스의 객체
     }
 
 
