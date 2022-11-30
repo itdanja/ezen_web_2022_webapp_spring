@@ -66,15 +66,15 @@ public class MemberController {
     }
 
     @GetMapping("/getloginMno") // 6. 로그인 정보 확인
-    public int getloginMno(){
-        int result = memberService.getloginMno();
+    public String getloginMno(){
+        String result = memberService.getloginMno();
         return result;
     }
 
-    @GetMapping("/logout") // 7. 로그아웃
-    public void logout(){
-        memberService.logout();
-    }
+//    @GetMapping("/logout") // 7. 로그아웃
+//    public void logout(){
+//        memberService.logout();
+//    }
 
     @GetMapping("/list") // 8. 회원 목록
     @ResponseBody
