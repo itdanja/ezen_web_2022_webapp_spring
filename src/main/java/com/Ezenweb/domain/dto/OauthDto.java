@@ -7,13 +7,11 @@ import java.util.Map;
 @NoArgsConstructor @AllArgsConstructor
 @Getter@Setter@ToString@Builder
 public class OauthDto {
-
     private String memail;                      // 아이디 [이메일]
     private String mname;                       // 이름[닉네임]
     private String registrationId;              // auth 회사명
     private Map<String , Object > attributes;   // 인증 결과
     private String oauth2UserInfo;              // 회원정보
-
     // auth 회사에 따른 객체 생성 // 1.oauth회사명[registrationId] // 2. 회원정보[oauth2UserInfo] 3. 인증결과 [ attributes ]
     public static OauthDto of( String registrationId ,   String oauth2UserInfo ,    Map<String , Object> attributes) {
         if( registrationId.equals("kakao") )        { return ofKakao( registrationId , oauth2UserInfo ,attributes );  }

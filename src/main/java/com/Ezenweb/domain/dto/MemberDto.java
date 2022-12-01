@@ -15,20 +15,11 @@ import java.util.Set;
 @Getter @Setter @ToString @Builder
 public class MemberDto implements UserDetails , OAuth2User {
 
-    @Override
-    public String getName() {
-        return this.memail;
-    }
-    @Override
-    public Map<String, Object> getAttributes() {
-        return this.attributes;
-    }
     private int mno;
     private String memail;
     private String mpassword;
     private String mphone;
     private Set<GrantedAuthority> authorities; // 인증 권한 [토큰]
-            // GrantedAuthority : 권한[토큰]
     private Map<String, Object> attributes; // oauth2 인증 결과
 
     // * dto ---> entity 변환
@@ -40,6 +31,8 @@ public class MemberDto implements UserDetails , OAuth2User {
                 .mphone(this.mphone)
                 .build();
     }
+
+    /* --------------UserDetails----------------- */
     public void setAuthorities(Set<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
@@ -78,6 +71,13 @@ public class MemberDto implements UserDetails , OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+
+    /* --------------OAuth2User----------------- */
+    @Override
+    public String getName() {  return this.memail; }
+    @Override
+    public Map<String, Object> getAttributes() {   return this.attributes; }
+
 }
 
 
