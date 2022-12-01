@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString @Builder
 public class MemberDto implements UserDetails {
+
     private int mno;
     private String memail;
     private String mpassword;

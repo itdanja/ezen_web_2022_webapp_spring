@@ -15,6 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -23,7 +27,18 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService
+        implements UserDetailsService ,
+        OAuth2UserService< OAuth2UserRequest , OAuth2User> {
+    // UserDetailsService : 일반회원 --> loadUserByUsername 메소드 구현
+    // Auth2UserService< OAuth2UserRequest , OAuth2User>  : 소셜회원 ---> OAuth2User 메소드 구현
+
+
+    @Override // 로그인 성공한 소셜 회원 정보 받는 메소드
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
+        return null;
+    }
 
     // ------------------------------- 전역 객체 -------------------------------//
     @Autowired
