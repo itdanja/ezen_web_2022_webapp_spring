@@ -58,12 +58,13 @@ public class MemberService
         Optional< MemberEntity > optional
                 = memberRepository.findByMemail( oauthDto.getMemail() );
 
-        MemberEntity memberEntity = null; //
-        if( optional.isPresent() ) { // 기존회원이면 // Optional 클래스 [ null 예외처리 방지 ]
+        MemberEntity memberEntity = null;
+        if( optional.isPresent() ) { // 기존회원이면 // Optional 클래스 [ null 예외처리 방지 ] \
             memberEntity = optional.get();
         }else{ // 기존회원이 아니면 [ 가입 ]
             memberEntity = memberRepository.save( oauthDto.toEntity() );
         }
+
         // 권한부여
         Set<GrantedAuthority> authorities   = new HashSet<>();
         authorities.add( new SimpleGrantedAuthority( memberEntity.getMrol() ) );
@@ -121,7 +122,8 @@ public class MemberService
         // 1. 입력받은 아이디 [ memail ] 로 엔티티 찾기
         MemberEntity memberEntity = memberRepository.findByMemail( memail )
                 .orElseThrow( ()-> new UsernameNotFoundException("사용자가 존재하지 않습니다,") ); // .orElseThrow : 검색 결과가 없으면 화살표함수[람다식]를 이용한
-        // 2. 검증된 토큰 생성
+
+        // 2. 검증된 토큰 생성 [ 일반회원 ]
         Set<GrantedAuthority>  authorities = new HashSet<>();
         authorities.add(
                 new SimpleGrantedAuthority( memberEntity.getMrol() )
