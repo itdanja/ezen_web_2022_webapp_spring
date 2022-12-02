@@ -19,7 +19,7 @@ export default function Index( props ){
     return  (
         <div>
             <Header/>
-             <h3>메인페이지</h3>
+                <h3>메인페이지</h3>
             <Footer/>
         </div>
     );
