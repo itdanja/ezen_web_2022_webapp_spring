@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Index from './component/Index'
 import Signup from './component/member/Signup'
 
 // 1. 사용할 컴포넌트 호출 [ import 컴포넌트명 from 파일명 ]
@@ -13,6 +14,13 @@ import CommentList from './chapter5/CommentList'
 
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// * 프로젝트
+    root.render(
+      <React.StrictMode>
+        <Index />
+      </React.StrictMode>
+    );
+
 
 // 3. Dom 컨테이너 렌더링
 // 1. 기본값 [ app.js 컴포넌트를 root 에 렌더링
@@ -46,12 +54,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //  </React.StrictMode>
 //);
 
-// 4.
-root.render(
-  <React.StrictMode>
-    <Signup />
-  </React.StrictMode>
-);
+// 5.
+//root.render(
+//  <React.StrictMode>
+//    <Signup />
+//  </React.StrictMode>
+//);
 
 
 
