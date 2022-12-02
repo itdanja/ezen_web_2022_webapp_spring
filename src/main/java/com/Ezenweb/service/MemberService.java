@@ -52,12 +52,24 @@ public class MemberService
                 .getUserNameAttributeName();
         // 4. Dto 처리
         OauthDto oauthDto = OauthDto.of( registrationId , oauth2UserInfo , oAuth2User.getAttributes() );
-            // 권한부여
-            Set<GrantedAuthority> authorities   = new HashSet<>();
-            authorities.add( new SimpleGrantedAuthority( "kakaoUser") );
-        // 5. 반환 MemberDto[ 일반회원 vs oauth : 통합회원 - loginDto ]
+
+        // *. Db 처리
+        // 1. 이메일로 엔티티 검색 [ 가입  or 기존회원 구분 ]
+        Optional< MemberEntity > optional
+                = memberRepository.findByMemail( oauthDto.getMemail() );
+
+        MemberEntity memberEntity = null; //
+        if( optional.isPresent() ) { // 기존회원이면 // Optional 클래스 [ null 예외처리 방지 ]
+            memberEntity = optional.get();
+        }else{ // 기존회원이 아니면 [ 가입 ]
+            memberEntity = memberRepository.save( oauthDto.toEntity() );
+        }
+        // 권한부여
+        Set<GrantedAuthority> authorities   = new HashSet<>();
+        authorities.add( new SimpleGrantedAuthority( memberEntity.getMrol() ) );
+         // 5. 반환 MemberDto[ 일반회원 vs oauth : 통합회원 - loginDto ]
         MemberDto memberDto = new MemberDto();
-            memberDto.setMemail( oauthDto.getMemail() );
+            memberDto.setMemail( memberEntity.getMemail() );
             memberDto.setAuthorities( authorities );
             memberDto.setAttributes( oauthDto.getAttributes() );
         return memberDto;
@@ -217,7 +229,7 @@ public class MemberService
         //1. 인증된 토큰 확인      [ SecurityContextHolder 인증된 토큰 보관소 ---> UserDetails(MemberDto) ]
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //2. 인증된 토큰 내용 확인
-        Object principal = authentication.getPrincipal(); // Principal:접근주체 [ UserDetails(MemberDto) ]
+        Object principal = authentication.getPrincipal(); // Principal:접근주체 [ UserDetails , OAuth2User (MemberDto) ]
         System.out.println("토큰 내용확인 : " + principal );
         // 3. 토큰 내용에 따른 제어
         if( principal.equals("anonymousUser") ){ // anonymousUser 이면 로그인전
