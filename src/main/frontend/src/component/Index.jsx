@@ -15,12 +15,28 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import Signup from './member/Signup';
+// 라우터 설치[ 터미널 ] : npm i react-router-dom == npm install react-router-dom
+// import { 컴포넌트명 } from 'react-router-dom'; v6
+import { HashRouter, BrowserRouter, Routes, Route, Link,  Router } from "react-router-dom";
+    // BrowserRouter : 가상 URL
+    //  vs HashRouter :
+    // Routes :  Route 목록/리스트
+    // Route :  가상 URL 만들기 --> 해당 URL 에 따른 컴포넌트 렌더링 [ SPA ]
+    // Link :   <---> a 태그  : 하이퍼링크
+        // Link to = "Route Path"
+    // Router :
 export default function Index( props ){
     return  (
         <div>
-            <Header/>
-                <h3>메인페이지</h3>
-            <Footer/>
+            <BrowserRouter>
+                <Header/>
+                    <Routes>
+                        <Route path="/" />
+                        <Route path="/member/signup" element={ <Signup/> } />
+                    </Routes>
+                <Footer/>
+            </BrowserRouter>
         </div>
     );
 }
