@@ -16,12 +16,12 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 export default function Index( props ){
-    return (
-        <Header/>
-            <div>
-                 메인페이지
-            </div>
-        <Footer/>
+    return  (
+        <div>
+            <Header/>
+             <h3>메인페이지</h3>
+            <Footer/>
+        </div>
     );
 }
 
