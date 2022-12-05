@@ -15,11 +15,11 @@ import NotificationList from './Book/chapter6/NotificationList' // 6장
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // * 프로젝트
-//    root.render(
-//      <React.StrictMode>
-//        <Index />
-//      </React.StrictMode>
-//    );
+    root.render(
+      <React.StrictMode>
+        <Index />
+      </React.StrictMode>
+    );
 // 3. Dom 컨테이너 렌더링
 // 1. 기본값 [ app.js 컴포넌트를 root 에 렌더링
 //    root.render(
@@ -60,11 +60,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //);
 
 // 6.
-root.render(
-  <React.StrictMode>
-    <NotificationList />
-  </React.StrictMode>
-);
+//root.render(
+//  <React.StrictMode>
+//    <NotificationList />
+//  </React.StrictMode>
+//);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

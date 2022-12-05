@@ -11,11 +11,13 @@
                // 2,3 : export default function 컴포넌트명(){  return ( 렌더링할 코드 ); }
 
 
-
 import React from 'react';
 import Header from './Header';
+import Home from './Home';
 import Footer from './Footer';
 import Signup from './member/Signup';
+import Login from './member/Login';
+
 // 라우터 설치[ 터미널 ] : npm i react-router-dom == npm install react-router-dom
 // import { 컴포넌트명 } from 'react-router-dom'; v6
 import { HashRouter, BrowserRouter, Routes, Route, Link,  Router } from "react-router-dom";
@@ -32,8 +34,9 @@ export default function Index( props ){
             <BrowserRouter>
                 <Header/>
                     <Routes>
-                        <Route path="/" />
+                        <Route path="/" element = { <Home /> } />
                         <Route path="/member/signup" element={ <Signup/> } />
+                        <Route path="/member/login" element={ <Login/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>
