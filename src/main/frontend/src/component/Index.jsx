@@ -31,7 +31,7 @@ import { HashRouter, BrowserRouter, Routes, Route, Link,  Router } from "react-r
     // Router :
 export default function Index( props ){
     return  (
-        <div>
+        <div className="webbox">
             <BrowserRouter>
                 <Header/>
                     <Routes>

@@ -26,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override // http 관련 시리큐티 재정의
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure( HttpSecurity http) throws Exception {
         http
                     .formLogin()                                        // 로그인 페이지 보안 설정
                         .loginPage("/member/login")                     // 아이디와 비밀번호를 입력받을 URL [ 로그인 페이지  ]
