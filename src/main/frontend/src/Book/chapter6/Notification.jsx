@@ -10,7 +10,7 @@ class Notification extends React.Component {
         this.state = { };   // 상태관리 변수 [ 비어 있음 ] // 사용안함
     } // end
 
-    // * 생명주기 함수
+    // * 생명주기 함수 [ 클래스 컴포넌트 생명주기 함수 사용O - 함수 컴포넌트 생명주기 함수 거의 사용x ]
     componentDidMount(){ console.log( `${this.props.id} 출생 함수 호출. ` ); }
     componentDidUpdate(){ console.log(`${this.props.id} 업데이트 함수 호출. ` ); }
     componentWillUnmount(){ console.log(`${this.props.id} 사망 함수 호출. ` ); }
@@ -21,6 +21,7 @@ class Notification extends React.Component {
             <div className="wrapper">
                 <span className="messageText">
                     { this.props.message }
+                    { /* 주석처리 */ }
                 </span>
             </div>
         )
