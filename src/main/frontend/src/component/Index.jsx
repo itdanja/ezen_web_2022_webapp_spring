@@ -17,6 +17,7 @@ import Home from './Home';
 import Footer from './Footer';
 import Signup from './member/Signup';
 import Login from './member/Login';
+import BoardList from './board/BoardList';
 
 // 라우터 설치[ 터미널 ] : npm i react-router-dom == npm install react-router-dom
 // import { 컴포넌트명 } from 'react-router-dom'; v6
@@ -37,6 +38,7 @@ export default function Index( props ){
                         <Route path="/" element = { <Home /> } />
                         <Route path="/member/signup" element={ <Signup/> } />
                         <Route path="/member/login" element={ <Login/> } />
+                        <Route path="/board/list" element={ <BoardList/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>

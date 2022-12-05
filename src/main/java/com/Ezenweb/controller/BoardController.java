@@ -24,8 +24,9 @@ public class BoardController {
         // 2. @Autowired 어노테이션 이용해서 Spring 컨테이너에 빈[메모리] 생성
     @Autowired
     private BoardService boardService= new BoardService();
+/*
 
-    // ------------2.페이지[html] 요청 로드 [view]---------------//
+    // ------------2.페이지[html] 요청 로드 [view] HTML 반환 매핑 -->[ 리액트 시 사용X ]---------------//
     // 1. 게시물목록 페이지 열기
     @GetMapping("/list") // URL  : localhost:8080/board/list 요청시 해당 html 반환
     public Resource getlist(){ return new ClassPathResource("templates/board/list.html"); }
@@ -38,15 +39,16 @@ public class BoardController {
     // 4. 게시물수정 페이지 열기
     @GetMapping("/update")// URL  : localhost:8080/board/update 요청시 해당 html 반환
     public Resource getupdate(){ return new ClassPathResource("templates/board/update.html"); }
+*/
 
     // ----------- 3.요청과응답 처리 [model] --------------//
         // 1. HTTP 요청 메소드 매핑 : @PostMapping @GetMapping @DeleteMapping @PutMapping
         // 2. HTTP 데이터 요청 메소드 매핑 : @RequestBody @RequestParam @PathVariable
     // 1. 게시물 쓰기 [ 첨부파일 없을때  ]
-//    @PostMapping("/setboard")
-//    public boolean setboard( @RequestBody BoardDto boardDto ){
-//        return boardService.setboard( boardDto);
-//    }
+/*    @PostMapping("/setboard")
+    public boolean setboard( @RequestBody BoardDto boardDto ){
+        return boardService.setboard( boardDto);
+    }*/
     // 1. 게시물 쓰기 [ 첨부파일 있을때 @RequestBody 지우기  ]
     @PostMapping("/setboard")
     public boolean setboard( BoardDto boardDto ){
@@ -73,10 +75,10 @@ public class BoardController {
         return boardService.delboard( bno );
     }
     // 5. 게시물 수정 [ 첨부파일 X  ]
-//    @PutMapping("/upboard")
-//    public boolean upboard( @RequestBody BoardDto boardDto){
-//        return boardService.upboard( boardDto );
-//    }
+/*    @PutMapping("/upboard")
+    public boolean upboard( @RequestBody BoardDto boardDto){
+        return boardService.upboard( boardDto );
+    }*/
     // 5. 게시물 수정 [ 첨부파일 ]
     @PutMapping("/upboard")
     public boolean upboard( BoardDto boardDto){

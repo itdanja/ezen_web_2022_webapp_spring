@@ -19,7 +19,8 @@ public class MemberController {
     @Autowired // 스프링 컨테이너 빈 생성 [ 외부에 메모리 위임 ]
     private MemberService memberService; // 서비스 객체 생성
 
-// --------------------------------- HTML 반환 매핑 ---------------------------------- //
+// --------------------------------- HTML 반환 매핑 -->[ 리액트 사용X ] ---------------------------------- //
+/*
     @GetMapping("/signup")  // 프로젝트내 resource -> templates -> member -> signup.html 반환
     public Resource getsignup(){ return new ClassPathResource("templates/member/signup.html");    }
     @GetMapping("/login")
@@ -34,6 +35,7 @@ public class MemberController {
     public Resource getdelete(){ return new ClassPathResource("templates/member/delete.html");}
     @GetMapping("/update")
     public Resource getupdate(){ return new ClassPathResource("templates/member/update.html");}
+*/
 
 // --------------------------------- 서비스/기능 매핑 ------------------------------------- //
     @PostMapping("/setmember") // 1.회원가입 기능
@@ -41,11 +43,11 @@ public class MemberController {
         int result = memberService.setmember( memberDto ); // 1. 서비스[ 비지니스 로직 ] 호출
         return result;  // 2. 반환
     }
-//    @PostMapping("/getmember") // 2.로그인 기능 [ 시큐리티 사용시 필요없음 ]
-//    public int getmember( @RequestBody MemberDto memberDto ){
-//        int result = memberService.getmember( memberDto );
-//        return result;
-//    }
+/*    @PostMapping("/getmember") // 2.로그인 기능 [ 시큐리티 사용시 필요없음 ]
+    public int getmember( @RequestBody MemberDto memberDto ){
+        int result = memberService.getmember( memberDto );
+        return result;
+    }*/
 
     @GetMapping("/getpassword") // 3.패스워드 찾기
     public String getpassword( @RequestParam("memail") String memail ){
@@ -71,10 +73,10 @@ public class MemberController {
         return result;
     }
 
-//    @GetMapping("/logout") // 7. 로그아웃
-//    public void logout(){
-//        memberService.logout();
-//    }
+/*    @GetMapping("/logout") // 7. 로그아웃
+    public void logout(){
+        memberService.logout();
+    }*/
 
     @GetMapping("/list") // 8. 회원 목록
     @ResponseBody
