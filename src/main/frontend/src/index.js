@@ -4,24 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import Index from './component/Index'
-import Signup from './component/member/Signup'
+import Index from './component/Index' // * 프로젝트
 
 // 1. 사용할 컴포넌트 호출 [ import 컴포넌트명 from 파일명 ]
-import Library from './Book/chapter3/Library'
-import Clock from './Book/chapter4/Clock'
-import CommentList from './Book/chapter5/CommentList'
+import Library from './Book/chapter3/Library' // 3장
+import Clock from './Book/chapter4/Clock' // 4장
+import CommentList from './Book/chapter5/CommentList' // 5장
+import NotificationList from './Book/chapter6/NotificationList' // 6장
 
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // * 프로젝트
-    root.render(
-      <React.StrictMode>
-        <Index />
-      </React.StrictMode>
-    );
-
-
+//    root.render(
+//      <React.StrictMode>
+//        <Index />
+//      </React.StrictMode>
+//    );
 // 3. Dom 컨테이너 렌더링
 // 1. 기본값 [ app.js 컴포넌트를 root 에 렌더링
 //    root.render(
@@ -61,8 +59,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //  </React.StrictMode>
 //);
 
-
-
+// 6.
+root.render(
+  <React.StrictMode>
+    <NotificationList />
+  </React.StrictMode>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
