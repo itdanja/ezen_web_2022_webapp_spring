@@ -11,16 +11,16 @@ import Library from './Book/chapter3/Library' // 3장
 import Clock from './Book/chapter4/Clock' // 4장
 import CommentList from './Book/chapter5/CommentList' // 5장
 import NotificationList from './Book/chapter6/NotificationList' // 6장
-import Counter from './Book/chapter7/Ex1_Hook' // 6장
+import Counter from './Book/chapter7/Ex1_Hook' // 7장
 
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // * 프로젝트
-//    root.render(
-//      <React.StrictMode>
-//        <Index />
-//      </React.StrictMode>
-//    );
+    root.render(
+      <React.StrictMode>
+        <Index />
+      </React.StrictMode>
+    );
 // 3. Dom 컨테이너 렌더링
 // 1. 기본값 [ app.js 컴포넌트를 root 에 렌더링
 //    root.render(
@@ -68,11 +68,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //);
 
 // 7. ex1
-root.render(
-  <React.StrictMode>
-    <Counter />
-  </React.StrictMode>
-);
+//root.render(
+//  <React.StrictMode>
+//    <Counter />
+//  </React.StrictMode>
+//);
 
 
 // If you want to start measuring performance in your app, pass a function

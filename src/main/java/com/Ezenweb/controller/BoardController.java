@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController // @Controller + @ResponseBody
 @RequestMapping("/board") // 공통 URL
 public class BoardController {
