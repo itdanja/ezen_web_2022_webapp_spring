@@ -2,9 +2,6 @@ import React from 'react'
 
 export default function BoardWrite( props ) {
 
-
-    let data = { bcname : document.querySelector(".bcname").value }
-
     const setbcategory = () => {  alert('카테고리 추가합니다.');  }
     const setboard = () => { alert('게시물 추가합니다.'); }
 
