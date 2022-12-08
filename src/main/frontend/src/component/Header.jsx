@@ -20,11 +20,24 @@ export default function Header(){
                     <Link to="/" > <img className="logo" src={logo} /> </Link>
                 </div>
                 <ul className ="top_menu">
-                    <li> { login } </li>
-                    <li> <Link to="/member/signup" > 회원가입   </Link> </li>
-                    <li> <Link to="/member/login" > 로그인     </Link> </li>
-                    <li> <a href="/member/logout"> 로그아웃     </a> </li>
+
+                    { login == "" ?
+                        (
+                            <>
+                                <li> <Link to="/member/signup" > 회원가입   </Link> </li>
+                                <li> <Link to="/member/login" > 로그인     </Link> </li>
+                            </>
+                        )
+                        :
+                        (
+                            <>
+                                <li> { login } </li>
+                                <li> <a href="/member/logout"> 로그아웃     </a> </li>
+                            </>
+                        )
+                    }
                     <li> <Link to="/board/list" > 자유게시판     </Link> </li>
+
                 </ul>
             </div>
         </div>
@@ -52,3 +65,15 @@ export default function Header(){
              success : function(re) {}
          })
     */
+
+
+/*
+    가상 DOM 작성시 주의점
+        1. <태그명> </태그명>  ,   <태그명 />
+        2. ( <태그명></태그명> )
+
+        JSX 문법에서 태그[요소]들을 묶어주주기
+        3-1. ( <div> <태그명></태그명> <태그명></태그명> </div> )
+        3-2. ( <> <태그명></태그명> <태그명></태그명> </> )
+        return ( <button type=""> </button> )
+*/
