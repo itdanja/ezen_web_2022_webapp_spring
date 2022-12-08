@@ -20,11 +20,11 @@ import TestState from './Book/chapter8/TestState' // 8장
 // 2. Dom 컨테이너 [ public-> index.html 안에 있는 태그 ]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // * 프로젝트
-//    root.render(
-//      <React.StrictMode>
-//        <Index />
-//      </React.StrictMode>
-//    );
+    root.render(
+      <React.StrictMode>
+        <Index />
+      </React.StrictMode>
+    );
 // 3. Dom 컨테이너 렌더링
 // 1. 기본값 [ app.js 컴포넌트를 root 에 렌더링
 //    root.render(
@@ -93,11 +93,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //);
 
 // 8. 실습
-root.render(
-  <React.StrictMode>
-    <ConfirmButton2 />
-  </React.StrictMode>
-);
+//root.render(
+//  <React.StrictMode>
+//    <ConfirmButton2 />
+//  </React.StrictMode>
+//);
+// 8. 실습2
 //root.render(
 //  <React.StrictMode>
 //    <TestState />
