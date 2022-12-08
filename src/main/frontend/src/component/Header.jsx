@@ -33,7 +33,7 @@ export default function Header(){
                             <>
                                 <li> { login } </li>
                                 <li> <a href="/member/logout"> 로그아웃     </a> </li>
-                                <li> <Link href="/book/list"> 리액트공부방     </Link> </li>
+                                <li> <Link to="/book/list"> 리액트공부방     </Link> </li>
                             </>
                         )
                     }
