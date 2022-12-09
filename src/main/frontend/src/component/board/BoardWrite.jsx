@@ -32,6 +32,7 @@ export default function BoardWrite( props ) {
 
     // 3. 입력받은 게시물 등록 함수 [ 실행조건 : 글쓰기 등록 버튼 눌렀을때 ]
     const setboard = () => {
+
         if( bcno == 0 ){ alert('카테고리를 선택해주세요'); return; }
 
         let boardform = document.querySelector('.boardform');

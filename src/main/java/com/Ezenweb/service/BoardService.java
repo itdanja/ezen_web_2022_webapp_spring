@@ -108,7 +108,8 @@ public class BoardService {
     @Transactional
     public boolean setboard( BoardDto boardDto ){
         // ---------- 로그인 회원 찾기 메소드 실행 --> 회원엔티티 검색 --------------  //
-        MemberEntity memberEntity = memberService.getEntity();
+        MemberEntity memberEntity = memberService.getEntity(); // * 시큐리티 적용하기 전/후 확인
+
         if( memberEntity == null ){ return false; }
         // ---------------------------- //
         // ------------ 선택한 카테고리 번호 --> 카테고리 엔티티 검색 --------------  //
