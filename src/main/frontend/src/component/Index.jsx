@@ -29,6 +29,7 @@ import Accommodate from '../Book/chapter7/Accommodate' // 7장
 import ConfirmButton2 from '../Book/chapter8/ConfirmButton2' // 8장
 import TestState from '../Book/chapter8/TestState' // 8장
 import LandingPage from '../Book/chapter9/LandingPage' // 9장
+import AttendanceBook from '../Book/chapter10/AttendanceBook' // 10장
 
 // 라우터 설치[ 터미널 ] : npm i react-router-dom == npm install react-router-dom
 // import { 컴포넌트명 } from 'react-router-dom'; v6
@@ -52,8 +53,9 @@ export default function Index( props ){
                         <Route path="/board/list" element={ <BoardList/> } />
                         <Route path="/board/write" element={ <BoardWrite/> } />
 
-                        <Route path="/book/list" element={ <BookList/> } />
 
+
+                        <Route path="/book/list" element={ <BookList/> } />
                         <Route path="/chapter3/Library" element = { <Library /> } />
                         <Route path="/chapter4/Clock" element={ <Clock/> } />
                         <Route path="/chapter5/CommentList" element={ <CommentList/> } />
@@ -61,6 +63,7 @@ export default function Index( props ){
                         <Route path="/chapter7/Accommodate" element={ <Accommodate/> } />
                         <Route path="/chapter8/ConfirmButton2" element={ <ConfirmButton2/> } />
                         <Route path="/chapter9/LandingPage" element={ <LandingPage/> } />
+                        <Route path="/chapter10/AttendanceBook" element={ <AttendanceBook/> } />
                     </Routes>
                 <Footer/>
             </BrowserRouter>
