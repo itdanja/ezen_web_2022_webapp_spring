@@ -46,9 +46,7 @@ public class BoardService {
     // private  BoardService boardService; // 불가능
 
     // 첨부파일 경로
-    String path = "C:\\Users\\504t\\Desktop\\springweb\\Ezenweb\\src\\main\\resources\\static\\bupload\\";
-
-
+    String path = "C:\\";
         // @Transactional : 엔티티 DML 적용 할때 사용되는 어노테이션
         // 1. 메소드
             /*
@@ -115,7 +113,7 @@ public class BoardService {
         // ---------------------------- //
         // ------------ 선택한 카테고리 번호 --> 카테고리 엔티티 검색 --------------  //
         Optional<BcategoryEntity> optional = bcategoryRepository.findById( boardDto.getBcno() );
-        if ( !optional.isPresent()) { return false;}
+        if ( !optional.isPresent() ) { return false;}
         BcategoryEntity bcategoryEntity = optional.get();
         // --------------------------  //
         BoardEntity boardEntity  = boardRepository.save( boardDto.toEntity() );  // 1. dto --> entity [ INSERT ] 저장된 entity 반환
