@@ -16,7 +16,7 @@ export default function BoardWrite( props ) {
             .then( res => { setCategoryList( res.data ); console.log( res)  } )
             .catch( err => { console.log( err); } )
     }
-    useEffect( getbcategory , [] ); // 페이지가 mount , unmount
+    useEffect( getbcategory  ,[ ] ); // 페이지가 mount , unmount
 
     // 2. 입력된 카테고리 등록 함수 [ 실행조건 : 카테고리 등록 버튼 눌렀을때 ]
     const setbcategory = () => {
