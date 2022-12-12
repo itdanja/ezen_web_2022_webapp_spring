@@ -45,6 +45,10 @@ export default function BoardList(){
         )
     }
 
+    const loadView = ( bno ) => {
+        window.location.href = '/board/view/'+bno
+    }
+
     return (
         <div>
             <a href="/board/write">글쓰기[로그인했을때만표시]</a>
@@ -70,9 +74,9 @@ export default function BoardList(){
                         return (
                             <tr>
                                 <td> { b.bno } </td>
-                                <td> { b.btitle } </td>
+                                <td onClick={ ( ) => loadView( b.bno ) }> { b.btitle } </td>
                                 <td> { b.memail } </td>
-                                <td> { b.memail } </td>
+                                <td> { b.bdate } </td>
                                 <td> { b.bview } </td>
                             </tr>
                         )
