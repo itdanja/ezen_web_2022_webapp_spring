@@ -26,9 +26,24 @@ export default function BoardList(){
     // ------------------------------ --------------------------------------------------- //
 
     // ------------------------------  3.페이징  -------------------------------------- //
-    const onPage = ( page ) =>{ setPageInfo( { bcno : pageInfo.bcno , page : page , key : "" , keyword:""  } )  }
-                                                    // 기존 카테고리
+    const onPage = ( page ) =>{
+        setPageInfo(
+            {   bcno : pageInfo.bcno ,          // 기존 카테고리
+                page : page ,
+                key : pageInfo.key ,            // 기존 검색 필드명
+                keyword : pageInfo.keyword  }   // 기존 검색할 단어
+        )
+    }
     // ------------------------------ --------------------------------------------------- //
+    // ------------------------------  4. 검색   -------------------------------------- //
+    const onSearch = () => {
+        setPageInfo(
+            {   bcno : pageInfo.bcno ,  // 카테고리 번호 [ 기존 그대로 : pageInfo.bcno ]
+                page : 1 ,              // 검색시 첫페이지부터 보여주기 [ 1 ]
+                key : document.querySelector('.key').value ,    // 검색할 필드명
+                keyword: document.querySelector('.keyword').value  } // 검색할 단어
+        )
+    }
 
     return (
         <div>
@@ -36,6 +51,9 @@ export default function BoardList(){
             <h1> 글 목록 페이지 </h1>
 
             <div className="bcategorybox">
+
+                <button type="button" onClick = { ()=> onCategory( 0 ) }> 전체보기 </button>
+
                 {
                     bcategory.map( (c) => {
                         return (
@@ -43,6 +61,7 @@ export default function BoardList(){
                         )
                     })
                 }
+
             </div>
 
             <table className="btable">
@@ -69,6 +88,57 @@ export default function BoardList(){
                 onChange={ onPage }
             />
 
+            <div className="searchBox">
+                <select className="key">
+                    <option value="btitle">제목</option>
+                    <option value="bcontent">내용</option>
+                </select>
+                <input type="text" className="keyword" />
+                <button type="button" onClick={ onSearch }> 검색 </button>
+            </div>
+
+
         </div>
     );
 }
+
+/*
+훅
+	1. useState	: 컴포넌트내 메모리
+		const [ 변수명 , set데이터변경함수 ] = useState( 초기값 )
+
+	2. useEffect	: 생명주기에 따른 이벤트 실행
+		1. useEffect( 이벤트함수  )		: mount , update , unmount
+		2. useEffect( 이벤트함수 , []  )		: mount  , unmount
+		3. useEffect( 이벤트함수 , [의존성배열]  )	: mount  , unmount , 의존성배열이 업데이트 있을때
+
+*/
+
+/*
+리액트 페이징 API
+
+	1. 설치
+		npm i react-js-pagination
+
+	2. 컴포넌트 가져오기
+		import Pagination from 'react-js-pagination'
+
+	3. 컴포넌트 사용
+		<Pagination
+            activePage={ 현재페이지 번호  }
+            itemsCountPerPage = { 페이지당 표시할 게시물수 }
+            totalItemsCount = { 게시물 총 개수 }
+            pageRangeDisplayed = {  표시할 페이징버튼 최대 개수 }
+            onChange={ 버튼 클릭할때마다 이벤트[ 자동으로 인수로 페이징번호 전달 ] }
+        />
+
+		------ 예시
+        <Pagination
+            activePage={ pageInfo.page  }
+            itemsCountPerPage = { 3 }
+            totalItemsCount = { pageDto.totalBoards }
+            pageRangeDisplayed = { 5 }
+            onChange={ onPage }
+        />
+
+*/

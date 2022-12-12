@@ -139,15 +139,10 @@ public class BoardService {
         Page<BoardEntity> elist = null; // 1. 페이징처리된 엔티티 리스트 객체 선언
         Pageable pageable = PageRequest.of(  // 2.페이징 설정 [ 페이지시작 : 0 부터 ] , 게시물수 , 정렬
                 pageDto.getPage()-1 , 3 , Sort.by( Sort.Direction.DESC , "bno")  );
-        // 3. 검색여부 / 카테고리  판단
-        if( pageDto.getKey().equals("btitle") ){ // 검색필드가 제목이면
-            elist = boardRepository.findbybtitle( pageDto.getBcno() , pageDto.getKeyword() , pageable);
-        }else if( pageDto.getKey().equals("bcotent") ){ // 검색필드가 제목이면
-            elist = boardRepository.findbybcontent( pageDto.getBcno() , pageDto.getKeyword()  , pageable);
-        }else{ // 검색이 없으면 // 카테고리 출력
-            if( pageDto.getBcno() == 0  ) elist = boardRepository.findAll( pageable);
-            else elist = boardRepository.findBybcno( pageDto.getBcno() , pageable);
-        }
+
+        // 3. 검색여부 / 카테고리  판단 [ 통합 ]
+        elist = boardRepository.findBySearch( pageDto.getBcno() , pageDto.getKey() , pageDto.getKeyword() , pageable );
+
         // 프론트엔드에 표시할 페이징번호버튼 수
         int btncount = 5;                               // 1.페이지에 표시할 총 페이지 버튼 개수
         int startbtn = (pageDto.getPage()/btncount) * btncount +1;   // 2. 시작번호 버튼
