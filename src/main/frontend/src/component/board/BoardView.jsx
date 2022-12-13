@@ -8,7 +8,7 @@ export default function BoardView( props ){
     const [ board , setBoard ] = useState( { } );
 
     useEffect(
-         axios.get( "/board/getboard" , { params : { bno: params.bno } } ).then( res => { setBoard( res.data ) })
+        ()=>axios.get( "/board/getboard" , { params : { bno: params.bno } } ).then( res => { setBoard( res.data ) } )
     , [] )
 
     return(
