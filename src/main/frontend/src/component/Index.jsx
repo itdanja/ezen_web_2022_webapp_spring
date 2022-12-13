@@ -68,8 +68,6 @@ export default function Index( props ){
                         <Route path="/chapter9/LandingPage" element={ <LandingPage/> } />
                         <Route path="/chapter10/AttendanceBook" element={ <AttendanceBook/> } />
                         <Route path="/chapter11/SignUp" element={ <SignUp/> } />
-
-
                     </Routes>
                 <Footer/>
             </BrowserRouter>

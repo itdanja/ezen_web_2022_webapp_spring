@@ -32,13 +32,12 @@ export default function BoardWrite( props ) {
             .catch( err => { console.log( err); } )
     }
 
+
+
     // 3. 입력받은 게시물 등록 함수 [ 실행조건 : 글쓰기 등록 버튼 눌렀을때 ]
     const setboard = () => {
         // 1. 카테고리 선택 유효성검사
         if( bcno == 0 ){ alert('카테고리를 선택해주세요'); return; }
-        // 2. 로그인 여부 검사
-        axios.get("/member/getloginMno")
-            .then( (response) => { if( response.data == '' ) { alert('로그인후 게시물 가능이 가능합니다.'); return; } } )
 
         let boardform = document.querySelector('.boardform');
         let formdata = new FormData( boardform );
@@ -74,16 +73,13 @@ export default function BoardWrite( props ) {
                     })
                 }
             </div>
-
             <form className="boardform">
                 제목 : <input type="text" name="btitle" />
-
                 <CKEditor
                     editor={ ClassicEditor }
                     data=""
                     onChange={ ( event, editor ) => { const data = editor.getData(); bcontent = data  } }
                 />
-
                 첨부파일 : <input type="file" name="bfile" />
                 <button type="button" onClick={ setboard } >등록</button>
             </form>

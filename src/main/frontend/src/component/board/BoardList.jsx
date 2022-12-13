@@ -47,6 +47,7 @@ export default function BoardList(){
 
     const loadView = ( bno ) => {
         window.location.href = '/board/view/'+bno
+        // 조회수 처리 할 예정
     }
 
     return (
