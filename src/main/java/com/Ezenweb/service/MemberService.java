@@ -243,7 +243,7 @@ public class MemberService
             return null;
         }else{ // anonymousUser 아니면 로그인후
             MemberDto memberDto = (MemberDto) principal;
-            return memberDto.getMemail()+"_"+memberDto.getAuthorities();
+            return memberDto.getMemail();
         }
     }
 //    // 7. 로그아웃 [ http 세션 ]
