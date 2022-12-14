@@ -47,7 +47,7 @@ public class BoardService {
     // private  BoardService boardService; // 불가능
 
     // 첨부파일 경로
-    String path = "C:\\";
+    String path = "C:\\upload\\";  // C드라이브-> upload 폴더 생성
         // @Transactional : 엔티티 DML 적용 할때 사용되는 어노테이션
         // 1. 메소드
             /*
@@ -88,7 +88,7 @@ public class BoardService {
     // * 첨부파일 업로드 [ 1. 쓰기메소드 2. 수정메소드 ] 사용
     @Transactional              //  boardDto : 쓰기,수정 대상     BoardEntity:원본
     public boolean fileupload( BoardDto boardDto , BoardEntity boardEntity ){
-        if( boardDto.getBfile() != null ) { // ** 첨부파일 있을때
+        if( !boardDto.getBfile().getOriginalFilename().equals("") ) { // ** 첨부파일 있을때
             // * 업로드 된 파일의 이름 [ 문제점 : 파일명 중복 ]
             String uuid = UUID.randomUUID().toString(); // 1. 난수생성
             String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename(); // 2. 난수+파일명
@@ -165,13 +165,11 @@ public class BoardService {
         Optional<BoardEntity> optional = boardRepository.findById( bno);
         if( optional.isPresent() ){
             BoardEntity boardEntity =  optional.get();
-
             // 첨부파일 같이 삭제
             if( boardEntity.getBfile() != null ) {   // 기존 첨부파일 있을때
                 File file = new File(path + boardEntity.getBfile()); // 기존 첨부파일 객체화
                 if (file.exists()) {   file.delete(); }           // 존재하면  /// 파일 삭제
             }
-
             boardRepository.delete( boardEntity ); // 찾은 엔티티를 삭제한다.
             return true;
         }else{ return false; }
@@ -185,7 +183,7 @@ public class BoardService {
             BoardEntity boardEntity = optional.get();
 
                 // 1. 수정할 첨부파일이 있을때    ----> 새로운 첨부파일 업로드 , db 수정한다.
-                if( boardDto.getBfile() != null ){      // boardDto : 수정할정보   boardEntity : 원본[db테이블]
+                if( !boardDto.getBfile().getOriginalFilename().equals("") ){      // boardDto : 수정할정보   boardEntity : 원본[db테이블]
                     if( boardEntity.getBfile() != null ) {   // 기존 첨부파일 있을때
                         File file = new File(path + boardEntity.getBfile()); // 기존 첨부파일 객체화
                         if (file.exists()) {   file.delete(); }           // 존재하면  /// 파일 삭제

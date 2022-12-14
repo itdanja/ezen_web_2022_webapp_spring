@@ -17,11 +17,7 @@ export default function BoardView( props ){
     ,[] )
 
     const onDelete = () => { // 3. 서버로 부터 해당 게시물번호를 이용한 삭제 요청
-        axios.delete("/board/delboard", { params : { bno: params.bno } } )
-        .then( res => { alert('게시물 삭제 성공'); window.location.href='/board/list'; } )
-    }
-    const onDownload = () => { // 4. 서버로 부터 해당 게시물번호를 이용한 첨부파일 다운로드 요청
-        axios.get("/board/filedownload" , { params : { filename : board.bfilename } } )
+        axios.delete("/board/delboard", { params : { bno: params.bno } } ) .then( res => { alert('게시물 삭제 성공'); window.location.href='/board/list'; } )
     }
     // 5. 해당 게시물번호의 해당하는 업데이트 페이지로 이동
     const getUpdate = () => { window.location.href='/board/update/'+params.bno;  }
@@ -30,7 +26,7 @@ export default function BoardView( props ){
         <div>
             <div> { board.btitle }</div>
             <div dangerouslySetInnerHTML={{__html:board.bcontent }} ></div>
-            { board.bfilename != '' && <button type="button" onClick={ onDownload }> { board.bfilename } </button>  }
+            { board.bfilename != '' && <a href = { "/board/filedownload?filename="+ board.bfilename} > { board.bfilename }</a>  }
             <div>
                 { login == board.memail && <button type="button" onClick={ onDelete }> 삭제 </button>  }
                 { login == board.memail && <button type="button" onClick={ getUpdate }> 수정 </button>  }

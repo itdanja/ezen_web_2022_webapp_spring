@@ -44,8 +44,7 @@ export default function BoardWrite( props ) {
         formdata.set( "bcno" , bcno );          // 폼데이터의 카테고리 번호 추가
         formdata.set( "bcontent" , bcontent );  // 폼데이터의 내용 추가
 
-        axios
-            .post("/board/setboard" , formdata , { headers: { 'Content-Type': 'multipart/form-data'  } }  )
+        axios .post("/board/setboard" , formdata , { headers: { 'Content-Type': 'multipart/form-data'  } }  )
             .then( res => {
                     console.log( res.data )
                     if( res.data == true ){ alert('게시물 작성 성공'); }
