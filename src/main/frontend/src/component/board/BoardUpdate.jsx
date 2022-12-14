@@ -13,6 +13,7 @@ export default function BoardUpdate( props ){
     , [] )
 
     const upboard = () => {  // 1. 서버로부터 수정된 정보를 이용한 게시물 수정 요청
+
     }
     return (
         <div>

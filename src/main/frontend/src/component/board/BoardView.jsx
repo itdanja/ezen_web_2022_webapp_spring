@@ -21,7 +21,7 @@ export default function BoardView( props ){
         .then( res => { alert('게시물 삭제 성공'); window.location.href='/board/list'; } )
     }
     const onDownload = () => { // 4. 서버로 부터 해당 게시물번호를 이용한 첨부파일 다운로드 요청
-
+        axios.get("/board/filedownload" , { params : { filename : board.bfilename } } )
     }
     // 5. 해당 게시물번호의 해당하는 업데이트 페이지로 이동
     const getUpdate = () => { window.location.href='/board/update/'+params.bno;  }
