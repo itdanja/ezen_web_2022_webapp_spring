@@ -2,10 +2,12 @@ package com.Ezenweb.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @Configuration // 설정 어노테이션 [ 스프링부트 시작시 빈에 등록 ]
+@EnableWebSocket // *웹소켓
 public class WebSocketConfiguration implements WebSocketConfigurer {  // 1. WebSocketConfigurer 웹 소켓 설정 인터페이스
     @Autowired
     private ServerSocketHandler serverSocketHandler;       // 서버소켓 클래스 호출

@@ -21,6 +21,7 @@ import BoardList from './board/BoardList';
 import BoardWrite from './board/BoardWrite';
 import BoardView from './board/BoardView';
 import BoardUpdate from './board/BoardUpdate';
+import Chatting from './chatting/Chatting';
 
 
 import BookList from '../Book/BookList';
@@ -59,6 +60,7 @@ export default function Index( props ){
                         <Route path="/board/write" element={ <BoardWrite/> } />
                         <Route path="/board/view/:bno" element={ <BoardView/> } />
                         <Route path="/board/update/:bno" element={ <BoardUpdate/> } />
+                        <Route path="/chatting" element={ <Chatting/> } />
 
                         <Route path="/book/list" element={ <BookList/> } />
                         <Route path="/chapter3/Library" element = { <Library /> } />
