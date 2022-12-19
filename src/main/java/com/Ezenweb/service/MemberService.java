@@ -116,7 +116,7 @@ public class MemberService
         MemberEntity entity = memberRepository.save( memberDto.toEntity() );
             // memberRepository.save( 엔티티 객체 ) : 해당 엔티티 객체가 insert 생성된 엔티티객체 반환
         // 회원 등급 넣어주기
-        entity.setMrol("user");
+        entity.setMrol("ROLE_MEMBER");
 
         // 2. 결과 반환 [ 생성된 엔티티의 pk값 반환 ]
         return entity.getMno();
@@ -130,9 +130,7 @@ public class MemberService
 
         // 2. 검증된 토큰 생성 [ 일반회원 ]
         Set<GrantedAuthority>  authorities = new HashSet<>();
-        authorities.add(
-                new SimpleGrantedAuthority( memberEntity.getMrol() )
-        ); // 토큰정보에 일반회원 내용 넣기
+        authorities.add(  new SimpleGrantedAuthority( memberEntity.getMrol() )); // 토큰정보에 일반회원 내용 넣기
         // 3.
         MemberDto memberDto = memberEntity.toDto(); // 엔티티 --> Dto
         memberDto.setAuthorities( authorities );       // dto --> 토큰 추가

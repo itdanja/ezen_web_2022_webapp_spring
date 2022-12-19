@@ -26,6 +26,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override // http 관련 시리큐티 재정의
     protected void configure( HttpSecurity http) throws Exception {
         http
+                // 권한[role] 에 따른 http 접근 제한 두기
+                .authorizeHttpRequests() // 1. 인증 http 요청들 [ 인증-로그인된 ] http 조건들
+                    .antMatchers("/board/write")
+                        .hasRole("MEMBER") // 게시물쓰기는 회원[MEMBER]만 가능
+                    .antMatchers("/board/update/**")
+                        .hasRole("MEMBER")
+                    .antMatchers("/admin/**")
+                        .hasRole("ADMIN") // admin 시작하는 경로들은 ADMIN 권한 접근 가능
+                    .antMatchers("/**")
+                        .permitAll() // 접근 제한 없음 [ 모든 유저가 사용가능 ]
+
+                .and()
+                    .exceptionHandling() // 오류페이지에 대한 페이지 매핑
+                    .accessDeniedPage("/error") // 해당  URL 이동
+                .and()
                     .formLogin()                                        // 로그인 페이지 보안 설정
                         .loginPage("/member/login")                     // 아이디와 비밀번호를 입력받을 URL [ 로그인 페이지  ]
                         .loginProcessingUrl("/member/getmember")        // 로그인을 처리할 URL [ 서비스 --> loadUserByUsername  ]
@@ -81,5 +96,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // WebSecurityConfigurerAdapter : 웹시큐리티 설정 클래스
                      // 설정 종류
                         // 1. URL 권한
+
+    권한에 따른 http 제한두기
+
+        http
+            .authorizeRequests()        // 인증요청URL들
+                .antMatchers("URL").hasRole("권한이름")         // 1. 해당 URL 에 해당 권한명을 가진 인증만 접근 가능
+                .antMatchers("URL").authentication()            // 2. 인증된 모든 사용자 접근 가능
+                .antMatchers("URL").permitAll()                 // 3. 인증 상관없이 무조건 허용
+                .antMatchers("URL").denyAll()                   // 4. 인증 상관없이 무조건 차단
+                .antMatchers("URL").hasIpAddress("ip주소")       // 5. 해당 ip만 접근 가능
 
  */
