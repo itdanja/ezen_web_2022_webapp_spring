@@ -30,16 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests() // 1. 인증 http 요청들 [ 인증-로그인된 ] http 조건들
                     .antMatchers("/board/write")
                         .hasRole("MEMBER") // 게시물쓰기는 회원[MEMBER]만 가능
+                .   antMatchers("/room/write")
+                        .hasRole("MEMBER") // 게시물쓰기는 회원[MEMBER]만 가능
                     .antMatchers("/board/update/**")
                         .hasRole("MEMBER")
                     .antMatchers("/admin/**")
                         .hasRole("ADMIN") // admin 시작하는 경로들은 ADMIN 권한 접근 가능
                     .antMatchers("/**")
                         .permitAll() // 접근 제한 없음 [ 모든 유저가 사용가능 ]
-
-                .and()
-                    .exceptionHandling() // 오류페이지에 대한 페이지 매핑
-                    .accessDeniedPage("/error") // 해당  URL 이동
                 .and()
                     .formLogin()                                        // 로그인 페이지 보안 설정
                         .loginPage("/member/login")                     // 아이디와 비밀번호를 입력받을 URL [ 로그인 페이지  ]
@@ -62,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .ignoringAntMatchers("/board/boardlist") // 게시물출력 post 사용
                         .ignoringAntMatchers("/board/delboard") // 게시물삭제 delete 사용
                         .ignoringAntMatchers("/board/upboard") // 게시물수정 put 사용
+                        .ignoringAntMatchers("/room/setroom") // 게시물수정 put 사용
                 .and()
                     .oauth2Login() // 소셜 로그인 보안 설정
                     .defaultSuccessUrl("/")// 소셜 로그인 성공시 이동하는 URL
