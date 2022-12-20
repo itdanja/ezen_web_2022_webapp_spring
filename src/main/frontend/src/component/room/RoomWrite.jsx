@@ -64,10 +64,26 @@ export default function RoomWrite( props ){
         })
 
     /* ------------------------------------*/
-
-
         // 4. 방 등록 버튼을 눌렀을대 이벤트
-        const onWrite = () => { }
+        const onWrite = () => {
+            // 1. 폼 전체
+            let roomform = document.querySelector('.roomform')
+            let formdata = new FormData(roomform);
+            // 2. 폼 전체 + 주소 정보
+            formdata.set( "rname" , address.name );
+            formdata.set( "rlat" , address.lat );
+            formdata.set( "rlng" , address.lng );
+            // 3. 서버에게 요청
+            axios.post( "/room/setroom" , formdata ,
+              { headers: { 'Content-Type': 'multipart/form-data'  } } )
+                .then( re => {
+                    if( re.data  == true  ){
+                        alert("방 등록 성공");
+                        window.location.href="/";
+                    }
+                    else{ alert("방 등록 실패"); }
+                })
+        }
 
 
     /* ------------------------------------------ */
@@ -75,7 +91,7 @@ export default function RoomWrite( props ){
     return(
         <>
             <h3> 방 등록 </h3>
-            <form>
+            <form className="roomform">
                 방이름 : <input type="text" name="rtitle" />
                 가격 : <input type="text" name="rprice" />
                 거래방식 :
