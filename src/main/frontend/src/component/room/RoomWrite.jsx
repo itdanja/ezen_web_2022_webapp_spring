@@ -2,6 +2,10 @@
 import React , {  useState , useEffect , useRef } from 'react';
 import {useDaumPostcodePopup} from 'react-daum-postcode'; // npm i react-daum-postcode
 import axios from 'axios';
+import icon from '../../img/roomicon.png' // 아이콘 이미지 불러오기
+    // 스프링 통합 배포시 : resources -> static -> static -> media -> 배포된 이미지 존재
+    // http://localhost:8080/static/media/roomicon.식별16진수.png
+        // 서로 다른 컴포넌트 간 동일한 사진의 이름이 존재할수 있으므로 식별16진수 추가
 
 // 3.컴포넌트[함수] 만들기
 export default function RoomWrite( props ){
@@ -39,9 +43,24 @@ export default function RoomWrite( props ){
             level: 3 // 지도의 확대 레벨
         };
 
-        useEffect( () => {                      // 4. 렌더링 할때마다 map 생성
-                var map = new kakao.maps.Map( mapContainer.current , mapOption); // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-                // mapContainer.current : 지도가 표시되는 div
+        useEffect( () => {
+            // 1. 해당 div에 옵션을 넣은 map 객체 생성
+            var map = new kakao.maps.Map( mapContainer.current , mapOption); // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            // 2.
+                // 마커 이미지의 주소
+                var markerImageUrl = 'http://localhost:8080/static/media/roomicon.b818afd964f981aed393.png',
+                    markerImageSize = new kakao.maps.Size(40, 42), // 마커 이미지의 크기
+                    markerImageOptions = {
+                        offset : new kakao.maps.Point(20, 42)// 마커 좌표에 일치시킬 이미지 안의 좌표
+                    };
+                // 마커 이미지를 생성한다
+                var markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+                // 지도에 마커를 생성하고 표시한다
+                var marker = new kakao.maps.Marker({
+                    position: new kakao.maps.LatLng( address.lat , address.lng ), // 마커의 좌표
+                    image : markerImage, // 마커의 이미지
+                    map: map // 마커를 표시할 지도 객체
+                });
         })
 
     /* ------------------------------------*/
