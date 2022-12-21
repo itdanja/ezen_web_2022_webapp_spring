@@ -52,16 +52,14 @@ public class RoomService {
         });
         return true;
     }
-
     // 2. 룸 출력
+    @Transactional
     public List<RoomDto> getroomlist(){
         // 1. 모든 룸 엔티티 꺼내기
         List<RoomEntity> roomEntityList = roomRepository.findAll(); // 매핑된 엔티티들
         List<RoomDto> roomDtoList = new ArrayList<>();              // 출력용 디티오
         // 2. 형변환
-        roomEntityList.forEach( (e) -> {
-            roomDtoList.add(  e.toDto() );
-        });
+        roomEntityList.forEach( (e) -> {  roomDtoList.add(  e.toDto() ); });
         return roomDtoList;
     }
 }
