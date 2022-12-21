@@ -36,14 +36,22 @@ export default function Home( props ) {
 
                 // ** 데이터를 가져와서 마커 생성후에 클러스터에 추가
                  var markers = roomList.map( ( position ) => {
-                            // 가져온 데이터의 좌표들을 반복문 돌리면서 [ 1. * 마커 생성 ]
-                            // [ 2. 생성된 마커들을 markers 에 저장 ] map반복문 return
+                    // 가져온 데이터의 좌표들을 반복문 돌리면서 [ 1. * 마커 생성 ]
+                    // [ 2. 생성된 마커들을 markers 에 저장 ] map반복문 return
+
                      let marker = new kakao.maps.Marker({
                          position: new kakao.maps.LatLng( position.rlat, position.rlng ), // 마커의 좌표
                          image : markerImage, // 마커의 이미지
                          map: map // 마커를 표시할 지도 객체
                      });
+
+                     // 마커에 클릭이벤트를 등록합니다
+                     kakao.maps.event.addListener(marker, 'click', function() {
+                            alert("사이드바 열린다~ " +position.rtitle + position.rno)
+                     });
+
                      return marker;
+
                  });
                  clusterer.addMarkers(markers); // 클러스터러에 마커들을 추가합니다
         })
