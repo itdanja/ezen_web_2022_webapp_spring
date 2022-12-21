@@ -18,7 +18,19 @@ public class RoomController {
 
     // 주의 : 리액트 라우터에 있는 path의 주소가 같으면 오류 발생
     @PostMapping("/setroom")
-    public boolean write( RoomDto roomDto ){
-        return roomService.write( roomDto );
-    }
+    public boolean write( RoomDto roomDto ){ return roomService.write( roomDto ); }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

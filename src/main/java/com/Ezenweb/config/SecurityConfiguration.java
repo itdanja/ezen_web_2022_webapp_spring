@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests() // 1. 인증 http 요청들 [ 인증-로그인된 ] http 조건들
                     .antMatchers("/board/write")
                         .hasRole("MEMBER") // 게시물쓰기는 회원[MEMBER]만 가능
-                .   antMatchers("/room/write")
+                    .antMatchers("/room/write")
                         .hasRole("MEMBER") // 게시물쓰기는 회원[MEMBER]만 가능
                     .antMatchers("/board/update/**")
                         .hasRole("MEMBER")

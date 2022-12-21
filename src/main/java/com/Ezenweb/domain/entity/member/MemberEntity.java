@@ -39,8 +39,6 @@ public class MemberEntity extends BaseEntity {
     @ToString.Exclude
     private List<RoomEntity> roomEntityList = new ArrayList<>();
 
-
-
     @Column // 회원 등급
     private String mrol;
 

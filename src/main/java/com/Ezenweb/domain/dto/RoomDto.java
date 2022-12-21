@@ -17,17 +17,18 @@ import java.util.List;
 @ToString
 @Builder
 public class RoomDto {
+    private int rno;
     private String rtitle;
     private int rprice;
     private String rtrans;
-    private List<MultipartFile> rimg;
+    private List<MultipartFile> rimg; // 저장용 이미지 인터페이스
         // 첨부파일 여러개를 위한 List 자료형 사용
     private String rname;
     private String rlat;
     private String rlng;
 
-    @Autowired
-    private RoomImgRepository roomImgRepository;
+    private String meamil;          // 출력용 작성자
+    private List<String> getrimg;   // 출력용 이미지
 
     public RoomEntity toEntity(){
         return RoomEntity.builder()
