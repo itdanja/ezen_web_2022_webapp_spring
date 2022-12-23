@@ -31,8 +31,11 @@ public class RoomService {
     // 현재 스프링의 배포된 내장 서버 폴더
     // String path ="C:\\프로젝트경로\\build\\resources\\main\\static\\bupload\\";
     //String path ="C:\\Users\\504t\\Desktop\\team\\ezen_web_2022_webapp_spring\\build\\resources\\main\\static\\bupload\\";
-    // 현재 스프링의 배포된 내장 서버내 리액트 리소스 [view] 폴더
+    // 현재 스프링의 배포된 내장 서버내 리액트 리소스 [static->media] 폴더 경로
+        // 서버 [ 내장서버 ]가 재 시작되면 빌드폴더에 업로드 파일 사라짐.
     String path ="C:\\Users\\504t\\Desktop\\team\\ezen_web_2022_webapp_spring\\build\\resources\\main\\static\\static\\media\\";
+
+
     @Transactional
     public boolean write(RoomDto roomDto ){
         // 1. 등록한 유저 [ 로그인한 유저 ]

@@ -26,7 +26,7 @@ export default function Home( props ) {
     /*---------- 카카오 지도 api ------------*/
         const mapContainer = useRef( null );
         const { kakao } = window;
-        const mapOption =  { center: new kakao.maps.LatLng( 36.2683, 127.6358  ), level: 10 };
+        const mapOption =  { center: new kakao.maps.LatLng( 36.2683, 127.6358  ), level: 14 };
 
         useEffect( () => {
             var map = new kakao.maps.Map( mapContainer.current , mapOption); // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -35,7 +35,7 @@ export default function Home( props ) {
                  var clusterer = new kakao.maps.MarkerClusterer({
                      map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
                      averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-                     minLevel: 5 // 클러스터 할 최소 지도 레벨
+                     minLevel: 3 // 클러스터 할 최소 지도 레벨
                  });
                 /* ------- 마커 이미지 --------------- */
                 var markerImageUrl = 'http://localhost:8080/static/media/roomicon.b818afd964f981aed393.png',
@@ -66,7 +66,8 @@ export default function Home( props ) {
 
                  });
                  clusterer.addMarkers(markers); // 클러스터러에 마커들을 추가합니다
-        })
+
+        } , [ roomList ] ) // 룸리스트 변경될때 마다 리 렌더링
 
     return(
 
