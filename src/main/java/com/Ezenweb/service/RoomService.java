@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoomService {
@@ -25,6 +27,10 @@ public class RoomService {
     private RoomRepository roomRepository;
     @Autowired
     private RoomImgRepository roomImgRepository;
+
+    // 현재 스프링의 배포된 내장서버 폴더
+    // String path ="C:\\프로젝트경로\\build\\resources\\main\\static\\bupload\\";
+    String path ="C:\\Users\\504t\\Desktop\\team\\ezen_web_2022_webapp_spring\\build\\resources\\main\\static\\bupload\\";
 
     @Transactional
     public boolean write(RoomDto roomDto ){
@@ -41,6 +47,7 @@ public class RoomService {
         memberEntity.getRoomEntityList().add( roomEntity );
             // 3. 사진등록 저장
         roomDto.getRimg().forEach( (img) -> { // 첨부파일 여러개 일경우 혹은 존재할경우
+
             if( !img.getOriginalFilename().equals("") ){ // 실제 첨부파일의 파일명이 존재할경우
                 RoomImgEntity roomImgEntity = roomImgRepository.save(
                         RoomImgEntity.builder().rimg( img.getOriginalFilename() ).build()
@@ -48,6 +55,15 @@ public class RoomService {
                 // 4. 룸에 사진엔티티 대입  // 5  사진엔티티에 룸 대입   [ 양방향 관계 ]
                 roomEntity.getRoomImgEntityList().add( roomImgEntity );
                 roomImgEntity.setRoomEntity( roomEntity );
+
+                // 첨부파일 사진 업로드
+                try {
+                    String filename = img.getOriginalFilename(); // 첨부파일된 실제 파일명
+                    File file = new File(path + filename);  // 경로+첨부파일명 => file 클래스 객체화 [ transferTo함수의 인수 file ]
+                    img.transferTo(file);
+                }catch ( Exception e ){  System.out.println("[업로드 실패] "+ e );  }
+                        // MultipartFile 인터페이스
+                            // transferTo : 업로드 [ 파일 이동 ] 함수  // 기존파일.transferTo( 이동할경로 )  // 예외처리 필수
             }
         });
         return true;
@@ -55,6 +71,13 @@ public class RoomService {
     // 2. 룸 출력
     @Transactional
     public List<RoomDto> getroomlist(){
+
+        Map<String , Integer> list = roomRepository.findBySearch();
+        for( String s :  list.keySet() ) {
+            System.out.println( s );
+            System.out.println( list.get(s));
+        }
+
         // 1. 모든 룸 엔티티 꺼내기
         List<RoomEntity> roomEntityList = roomRepository.findAll(); // 매핑된 엔티티들
         List<RoomDto> roomDtoList = new ArrayList<>();              // 출력용 디티오

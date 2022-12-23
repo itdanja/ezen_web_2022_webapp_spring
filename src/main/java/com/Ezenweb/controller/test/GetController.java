@@ -34,7 +34,7 @@ public class GetController {
 
     // 3. p.59
     // 주의 : @GetMapping 경로상의 변수명[ {variable} ] 과 @PathVariable 매개변수[ variable ]
-    @GetMapping("/variable1/{variable}") // 경로상의 변수[값]
+    @GetMapping("/variable1/{variable}/{variable2}") // 경로상의 변수[값]
     public String getVariable1( @PathVariable String variable ){
         return variable;
     }
