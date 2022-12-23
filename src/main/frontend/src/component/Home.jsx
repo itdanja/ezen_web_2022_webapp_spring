@@ -1,10 +1,21 @@
 import React , { useState ,useEffect , useRef  } from 'react'
 import axios from 'axios'
 
+/* --------- 부트스트랩 import ----------*/
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+/* ------------------------------------ */
+
 export default function Home( props ) {
 
+    /* ---- 부트스트랩 사이드바 상태 [ 열렸을때 true 닫혔을때 false ] 변수 ---- */
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    /*----------------------------*/
+    const [ selectIndex , setSelectIndex ] = useState( -1 ); // 마커 클릭시 클릭된 roomList index 저장
     /* ---------  룸 데이터 ------------------*/
-    const [ roomList , setRoomList ] = useState([]);
+    const [ roomList , setRoomList ] = useState( [ { getrimg : [] } ] );
     // useEffect( ()=>{ axios } , [] );
     useEffect( ()=>{
         axios.get("/room/getroomlist")
@@ -35,7 +46,7 @@ export default function Home( props ) {
                 var markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
 
                 // ** 데이터를 가져와서 마커 생성후에 클러스터에 추가
-                 var markers = roomList.map( ( position ) => {
+                 var markers = roomList.map( ( position , i ) => {
                     // 가져온 데이터의 좌표들을 반복문 돌리면서 [ 1. * 마커 생성 ]
                     // [ 2. 생성된 마커들을 markers 에 저장 ] map반복문 return
 
@@ -47,19 +58,33 @@ export default function Home( props ) {
 
                      // 마커에 클릭이벤트를 등록합니다
                      kakao.maps.event.addListener(marker, 'click', function() {
-                            alert("사이드바 열린다~ " +position.rtitle + position.rno)
+                            setSelectIndex( i ); // 클릭된 마커의  roomList index 저장
+                            setShow(true); // 부트스트랩 사이드바 열기
                      });
-
                      return marker;
-
                  });
                  clusterer.addMarkers(markers); // 클러스터러에 마커들을 추가합니다
         })
 
     return(
-        <div>
-            {/*카카오 map api */ }
-            <div id="map" ref={ mapContainer } style={{width:'100%',height:'800px'}} >  </div>
-        </div>
+
+        <>
+              {/*---------------------부트스트랩 사이드바-------------------------- */}
+              <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    { selectIndex }
+                    <img src={ "http://localhost:8080/bupload/"+roomList[ selectIndex ].getrimg[0] } />
+                </Offcanvas.Body>
+              </Offcanvas>
+              { /* ---------------------------------------------------------*/ }
+
+            <div>
+                {/*카카오 map api */ }
+                <div id="map" ref={ mapContainer } style={{width:'100%',height:'800px'}} >  </div>
+            </div>
+        </>
     )
 }

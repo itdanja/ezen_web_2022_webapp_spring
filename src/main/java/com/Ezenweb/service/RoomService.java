@@ -49,16 +49,16 @@ public class RoomService {
         roomDto.getRimg().forEach( (img) -> { // 첨부파일 여러개 일경우 혹은 존재할경우
 
             if( !img.getOriginalFilename().equals("") ){ // 실제 첨부파일의 파일명이 존재할경우
-                RoomImgEntity roomImgEntity = roomImgRepository.save(
-                        RoomImgEntity.builder().rimg( img.getOriginalFilename() ).build()
-                );// 필드가 적을때는 굳이 DTO 필요없음
+                RoomImgEntity roomImgEntity = roomImgRepository.save(  RoomImgEntity.builder().build() );// 필드가 적을때는 굳이 DTO 필요없음
                 // 4. 룸에 사진엔티티 대입  // 5  사진엔티티에 룸 대입   [ 양방향 관계 ]
                 roomEntity.getRoomImgEntityList().add( roomImgEntity );
                 roomImgEntity.setRoomEntity( roomEntity );
 
                 // 첨부파일 사진 업로드
                 try {
-                    String filename = img.getOriginalFilename(); // 첨부파일된 실제 파일명
+                    // 첨부파일에 식별자 추가 [ pk + 파일명 ] // 파일명이 중복될수 있기 때문에
+                    String filename = roomImgEntity.getRimgno()+img.getOriginalFilename(); // 첨부파일된 실제 파일
+                    roomImgEntity.setRimg( filename );// DB에 식별자가 추가된 파일명으로 변경
                     File file = new File(path + filename);  // 경로+첨부파일명 => file 클래스 객체화 [ transferTo함수의 인수 file ]
                     img.transferTo(file);
                 }catch ( Exception e ){  System.out.println("[업로드 실패] "+ e );  }
