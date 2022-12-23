@@ -13,7 +13,7 @@ export default function Home( props ) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     /*----------------------------*/
-    const [ selectIndex , setSelectIndex ] = useState( -1 ); // 마커 클릭시 클릭된 roomList index 저장
+    const [ selectIndex , setSelectIndex ] = useState( 0 ); // 마커 클릭시 클릭된 roomList index 저장
     /* ---------  룸 데이터 ------------------*/
     const [ roomList , setRoomList ] = useState( [ { getrimg : [] } ] );
     // useEffect( ()=>{ axios } , [] );
@@ -61,7 +61,9 @@ export default function Home( props ) {
                             setSelectIndex( i ); // 클릭된 마커의  roomList index 저장
                             setShow(true); // 부트스트랩 사이드바 열기
                      });
+
                      return marker;
+
                  });
                  clusterer.addMarkers(markers); // 클러스터러에 마커들을 추가합니다
         })
@@ -76,7 +78,13 @@ export default function Home( props ) {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     { selectIndex }
-                    <img src={ "http://localhost:8080/bupload/"+roomList[ selectIndex ].getrimg[0] } />
+                    {
+                        /* 선택된 룸의 이미지들을 출력 */
+                        roomList[ selectIndex ].getrimg.map( ( img ) => {
+                            return <img src={ "http://localhost:8080/static/media/"+img } />
+                        })
+                    }
+
                 </Offcanvas.Body>
               </Offcanvas>
               { /* ---------------------------------------------------------*/ }
